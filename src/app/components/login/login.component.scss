@@ -1,0 +1,54 @@
+.loginBg{
+  z-index: -1;
+  background-size: cover;
+  opacity: 0.85;
+  background: white url("../../../assets/images/background_vector.svg") no-repeat center ;
+  width: 100%;
+  height: 100vh;
+}
+
+.wrapping{
+  position: absolute ;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0 auto;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container{
+  background-color: rgba(255,127,80 ,0.9 );
+  border-radius: 20px;
+  padding:30px 30px ;
+  box-shadow: 0 4px 8px 3px rgba(0, 0, 0, 0.5);
+}
+
+form{
+  display: flex;
+  flex-direction:column ;
+  justify-content: flex-start;
+}
+
+#passField{
+  margin-top: 7vh;
+}
+button{
+  height: 4vh;
+  border-color: transparent;
+  color: coral;
+  width: 40%;
+  align-self: center;
+  border-radius: 10px;
+}
+
+h2{
+  color: ghostwhite;
+}
+
+
+
+
