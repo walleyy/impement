@@ -5,18 +5,19 @@
     <div class="form-container">
       <div style="padding: 20px 20px" >
 
-        <form>
+        <form [formGroup]="loginForm" (ngSubmit)="check(loginForm.value)" >
           <h2>Login</h2>
           <mat-form-field appearance="outline" >
             <mat-label>name</mat-label>
-            <input matInput placeholder="name" type="text">
+            <input matInput placeholder="name" type="text" formControlName="name">
           </mat-form-field>
+
 
           <mat-form-field appearance="outline" id="passField">
             <mat-label>password</mat-label>
-            <input matInput  type="password">
+            <input matInput  type="password" formControlName="password">
           </mat-form-field>
-          <button class="button">login</button>
+          <button class="button" type="submit" [disabled]="!loginForm.valid">login</button>
         </form>
 
       </div>

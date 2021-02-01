@@ -7,14 +7,21 @@
 
 .card-stats{
     .card-body{
-        padding: 15px 15px 0px;
+        padding: 15px 15px 0;
 
         .numbers{
-          text-align: right;
-          font-size: 2em;
+          align-items: flex-start;
+          text-align: center;
+          justify-content: space-evenly;
+          font-size: -20em;
 
             p{
-                margin-bottom: 0;
+              margin-bottom: 0;
+              display: inherit;
+              word-spacing: -2px;
+              letter-spacing: -1px;
+              font-size: 17px;
+              line-height: 17px;
             }
             .card-category {
               color: $dark-gray;

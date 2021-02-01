@@ -15,7 +15,6 @@ import {FixedPluginModule} from './components/dash-board/shared/fixedplugin/fixe
 import {ToastrModule} from 'ngx-toastr';
 import {SidebarModule} from './components/dash-board/sidebar/sidebar.module';
 import {NavbarModule} from './components/dash-board/shared/navbar/navbar.module';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +34,7 @@ import {NavbarModule} from './components/dash-board/shared/navbar/navbar.module'
     FooterModule,
     FixedPluginModule,
     SidebarModule,
-    NavbarModule,
+    NavbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
