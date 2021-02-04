@@ -2,14 +2,17 @@ import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/co
 import { ROUTES } from '../../sidebar/sidebar.component';
 import { Router } from '@angular/router';
 import { Location} from '@angular/common';
+import {FormControl} from '@angular/forms';
 
 @Component({
   moduleId: module.id,
-  selector: 'navbar-cmp',
+  selector: 'app-navbar',
   templateUrl: 'navbar.component.html'
 })
 
 export class NavbarComponent implements OnInit {
+  search = new FormControl('');
+
   // @ts-ignore
   public listTitles: any[];
   location: Location;
@@ -94,5 +97,6 @@ export class NavbarComponent implements OnInit {
     }
 
   }
+
 
 }

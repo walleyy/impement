@@ -1,130 +1,72 @@
 <div class="row">
   <div class="col-md-12">
     <div class="card">
-      <div class="card-header">
-        <h4 class="card-title"> Simple Table</h4>
-      </div>
       <div class="card-body">
-        <div class="table-responsive">
-          <table class="table">
-            <thead class=" text-primary">
-            <th>
-              Name
-            </th>
-            <th>
-              Country
-            </th>
-            <th>
-              City
-            </th>
-            <th class="text-right">
-              Salary
-            </th>
-            </thead>
-            <tbody>
-            <tr>
-              <td>
-                Dakota Rice
-              </td>
-              <td>
-                Niger
-              </td>
-              <td>
-                Oud-Turnhout
-              </td>
-              <td class="text-right">
-                $36,738
-              </td>
+        <div  >
+          <mat-form-field appearance="fill">
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+          </mat-form-field>
+
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> No. </th>
+              <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="weight">
+              <th mat-header-cell *matHeaderCellDef> Weight </th>
+              <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="symbol"  >
+              <th mat-header-cell *matHeaderCellDef> Symbol </th>
+              <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+            </ng-container>
+
+
+<!--             action column -->
+            <ng-container matColumnDef="action" >
+              <th  mat-header-cell *matHeaderCellDef  > Actions </th>
+              <mat-cell *matCellDef="let row" >
+
+                <td class="row" style="display: flex; justify-content: space-evenly"  >
+                  <button mat-button >View</button>
+                  <button mat-button >Delete</button>
+                </td>
+              </mat-cell>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
             </tr>
-            <tr>
-              <td>
-                Minerva Hooper
-              </td>
-              <td>
-                Curaçao
-              </td>
-              <td>
-                Sinaai-Waas
-              </td>
-              <td class="text-right">
-                $23,789
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Sage Rodriguez
-              </td>
-              <td>
-                Netherlands
-              </td>
-              <td>
-                Baileux
-              </td>
-              <td class="text-right">
-                $56,142
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Philip Chaney
-              </td>
-              <td>
-                Korea, South
-              </td>
-              <td>
-                Overland Park
-              </td>
-              <td class="text-right">
-                $38,735
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Doris Greene
-              </td>
-              <td>
-                Malawi
-              </td>
-              <td>
-                Feldkirchen in Kärnten
-              </td>
-              <td class="text-right">
-                $63,542
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Mason Porter
-              </td>
-              <td>
-                Chile
-              </td>
-              <td>
-                Gloucester
-              </td>
-              <td class="text-right">
-                $78,615
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Jon Porter
-              </td>
-              <td>
-                Portugal
-              </td>
-              <td>
-                Gloucester
-              </td>
-              <td class="text-right">
-                $98,615
-              </td>
-            </tr>
-            </tbody>
+
           </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
         </div>
       </div>
     </div>
   </div>
 
 </div>
+
+
+
+
+
+
