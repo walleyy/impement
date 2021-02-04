@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { DashBoardComponent } from '../pages/dash-board/dash-board.component';
 import { UsersComponent } from '../pages/users/users.component';
-import { TablesComponent } from '../pages/tables/tables.component';
+import { TablesComponent, DetailsComponent } from '../pages/tables/tables.component';
 import { NotificationsComponent } from '../pages/notifications/notifications.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatInputModule} from '@angular/material/input';
@@ -40,7 +40,8 @@ import {TaReportComponent} from '../pages/ta-report/ta-report.component';
     TablesComponent,
     NotificationsComponent,
     DialogComponent,
-    SmReportComponent
+    SmReportComponent,
+    DetailsComponent
   ],
   exports: [
     MatInputModule,
@@ -56,7 +57,8 @@ import {TaReportComponent} from '../pages/ta-report/ta-report.component';
     SmReportComponent,
     DialogComponent,
     RReportComponent,
-    TaReportComponent
+    TaReportComponent,
+    DetailsComponent
   ]
 })
 

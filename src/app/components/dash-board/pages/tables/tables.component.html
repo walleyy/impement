@@ -41,8 +41,8 @@
               <mat-cell *matCellDef="let row" >
 
                 <td class="row" style="display: flex; justify-content: space-evenly"  >
-                  <button mat-button >View</button>
-                  <button mat-button >Delete</button>
+                  <button mat-button (click)="openDetails(row)" >View</button>
+                  <button mat-button  (click)="Delete(row)">Delete</button>
                 </td>
               </mat-cell>
             </ng-container>
