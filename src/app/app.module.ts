@@ -20,9 +20,9 @@ import {AdminLayoutModule} from './components/dash-board/admin-layout/admin-layo
 import {MatDialogModule} from '@angular/material/dialog';
 import { TaReportComponent } from './components/dash-board/pages/ta-report/ta-report.component';
 import { RReportComponent } from './components/dash-board/pages/r-report/r-report.component';
-import { LogsComponent } from './components/dash-board/pages/logs/logs.component';
 import {AuthService} from '../services/auth.service';
 import {HttpClientModule} from '@angular/common/http';
+import {AuthInterceptor} from './helper/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,6 @@ import {HttpClientModule} from '@angular/common/http';
     AdminLayoutComponent,
     TaReportComponent,
     RReportComponent,
-    LogsComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +50,7 @@ import {HttpClientModule} from '@angular/common/http';
     MatDialogModule,
     HttpClientModule
   ],
-  providers: [AuthService],
+  providers: [AuthInterceptor],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

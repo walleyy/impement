@@ -23,6 +23,7 @@ import {CdkTableModule} from '@angular/cdk/table';
 import {MatIconModule} from '@angular/material/icon';
 import {AuthService} from '../../../../services/auth.service';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {AuthInterceptor} from '../../../helper/auth.interceptor';
 
 
 @NgModule({
@@ -70,7 +71,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     DetailsComponent,
     EditComponent
   ],
-  providers: [AuthService]
+  providers: [AuthInterceptor]
 })
 
 export class AdminLayoutModule {}
