@@ -26,7 +26,7 @@
       <div class="card-footer ">
         <hr>
         <div class="">
-          <button mat-button class="clickable" (click)="openDialogSM()"><span style="float: left">view report</span>  <span style="float: right" ><i class="fa fa-arrow-right" ></i></span></button>
+          <button mat-button class="clickable" [routerLink]="['/admin', 'smReport']"><span style="float: left">view report</span>  <span style="float: right" ><i class="fa fa-arrow-right" ></i></span></button>
         </div>
       </div>
     </div>
@@ -58,7 +58,7 @@
       <div class="card-footer ">
         <hr>
         <div class="">
-          <button mat-button class="clickable" (click)="openDialogTA()"><span style="float: left">view report</span>  <span style="float: right" ><i class="fa fa-arrow-right" ></i></span></button>
+          <button mat-button  [routerLink]="['/admin','taReport' ]" class="clickable"><span style="float: left">view report</span>  <span style="float: right" ><i class="fa fa-arrow-right" ></i></span></button>
         </div>
       </div>
     </div>
@@ -85,7 +85,7 @@
       <div class="card-footer ">
         <hr>
         <div class="">
-          <button mat-button class="clickable" (click)="openDialogR()"><span style="float: left">view report</span>  <span style="float: right" ><i class="fa fa-arrow-right" ></i></span></button>
+          <button mat-button class="clickable" [routerLink]="['/admin' , 'rReport']"><span style="float: left">view report</span>  <span style="float: right" ><i class="fa fa-arrow-right" ></i></span></button>
         </div>
       </div>
     </div>

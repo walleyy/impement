@@ -5,7 +5,7 @@ import {AdminLayoutComponent} from './components/dash-board/admin-layout/admin-l
 
 
 const routes: Routes = [
-  {path: '', component: LoginComponent},
+  {path: '', redirectTo: 'login' , pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {
     path: 'admin',
@@ -15,7 +15,7 @@ const routes: Routes = [
         path: '',
         loadChildren: './components/dash-board/admin-layout/admin-layout.module#AdminLayoutModule'
       }]},
-  {path: '**', redirectTo: 'admin'},
+  {path: '**', redirectTo: 'login'},
 ];
 
 @NgModule({

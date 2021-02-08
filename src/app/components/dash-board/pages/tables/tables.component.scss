@@ -16,18 +16,20 @@ table{
   background-color: whitesmoke;
 }
 th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
-  padding: 0;
+  padding: 10px;
   border-bottom-width: 1px;
   border-color: grey;
   border-bottom-style: solid ;
+  justify-content: space-evenly;
   //color: #3b3838;
 }
 
 mat-cell:last-of-type, mat-header-cell:last-of-type, mat-footer-cell:last-of-type {
-  padding-right: 24px;
-  max-width: 30vw;
+
+  justify-content: space-evenly;
 }
 th ,.mat-header-cell{
   background-color: rgba(40, 38, 38, 0.85);
 }
+
 

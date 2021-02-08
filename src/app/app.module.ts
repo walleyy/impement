@@ -18,10 +18,11 @@ import {NavbarModule} from './components/dash-board/shared/navbar/navbar.module'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {AdminLayoutModule} from './components/dash-board/admin-layout/admin-layout.module';
 import {MatDialogModule} from '@angular/material/dialog';
-import {SmReportComponent} from './components/dash-board/pages/sm-report/sm-report.component';
-import {DialogComponent} from './components/dash-board/shared/dialog/dialog.component';
 import { TaReportComponent } from './components/dash-board/pages/ta-report/ta-report.component';
 import { RReportComponent } from './components/dash-board/pages/r-report/r-report.component';
+import { LogsComponent } from './components/dash-board/pages/logs/logs.component';
+import {AuthService} from '../services/auth.service';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { RReportComponent } from './components/dash-board/pages/r-report/r-repor
     AdminLayoutComponent,
     TaReportComponent,
     RReportComponent,
+    LogsComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,9 +48,10 @@ import { RReportComponent } from './components/dash-board/pages/r-report/r-repor
     MatFormFieldModule,
     NgbModule,
     AdminLayoutModule,
-    MatDialogModule
+    MatDialogModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

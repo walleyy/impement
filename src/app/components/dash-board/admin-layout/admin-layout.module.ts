@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { DashBoardComponent } from '../pages/dash-board/dash-board.component';
 import { UsersComponent } from '../pages/users/users.component';
-import { TablesComponent, DetailsComponent } from '../pages/tables/tables.component';
+import { TablesComponent, DetailsComponent, EditComponent } from '../pages/tables/tables.component';
 import { NotificationsComponent } from '../pages/notifications/notifications.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatInputModule} from '@angular/material/input';
@@ -19,21 +19,28 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {SmReportComponent} from '../pages/sm-report/sm-report.component';
 import {RReportComponent} from '../pages/r-report/r-report.component';
 import {TaReportComponent} from '../pages/ta-report/ta-report.component';
+import {CdkTableModule} from '@angular/cdk/table';
+import {MatIconModule} from '@angular/material/icon';
+import {AuthService} from '../../../../services/auth.service';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 @NgModule({
-    imports: [
-        CommonModule,
-        MatInputModule,
-        FormsModule,
-        MatTableModule,
-        RouterModule.forChild(AdminLayoutRoutes),
-        ReactiveFormsModule,
-        NgbModule,
-        MatButtonModule,
-        MatPaginatorModule,
-        MatDialogModule
-    ],
+  imports: [
+    CommonModule,
+    MatInputModule,
+    FormsModule,
+    MatTableModule,
+    RouterModule.forChild(AdminLayoutRoutes),
+    ReactiveFormsModule,
+    NgbModule,
+    MatButtonModule,
+    MatPaginatorModule,
+    MatDialogModule,
+    CdkTableModule,
+    MatIconModule,
+    MatExpansionModule
+  ],
   declarations: [
     DashBoardComponent,
     UsersComponent,
@@ -41,7 +48,8 @@ import {TaReportComponent} from '../pages/ta-report/ta-report.component';
     NotificationsComponent,
     DialogComponent,
     SmReportComponent,
-    DetailsComponent
+    DetailsComponent,
+    EditComponent
   ],
   exports: [
     MatInputModule,
@@ -51,15 +59,18 @@ import {TaReportComponent} from '../pages/ta-report/ta-report.component';
     MatFormFieldModule,
     MatButtonModule,
     MatPaginatorModule,
-    MatDialogModule
+    MatDialogModule,
+    MatExpansionModule
   ],
   entryComponents: [
     SmReportComponent,
     DialogComponent,
     RReportComponent,
     TaReportComponent,
-    DetailsComponent
-  ]
+    DetailsComponent,
+    EditComponent
+  ],
+  providers: [AuthService]
 })
 
 export class AdminLayoutModule {}

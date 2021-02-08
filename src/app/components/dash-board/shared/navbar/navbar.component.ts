@@ -1,8 +1,9 @@
-import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
+import {Component, OnInit, Renderer2, ViewChild, ElementRef, HostListener} from '@angular/core';
 import { ROUTES } from '../../sidebar/sidebar.component';
 import { Router } from '@angular/router';
 import { Location} from '@angular/common';
 import {FormControl} from '@angular/forms';
+import {AuthService} from '../../../../../services/auth.service';
 
 @Component({
   moduleId: module.id,
@@ -12,6 +13,7 @@ import {FormControl} from '@angular/forms';
 
 export class NavbarComponent implements OnInit {
   search = new FormControl('');
+  mouse = false;
 
   // @ts-ignore
   public listTitles: any[];
@@ -24,7 +26,8 @@ export class NavbarComponent implements OnInit {
   public isCollapsed = true;
   @ViewChild('navbar-cmp', {static: false}) button: any;
 
-  constructor(location: Location, private renderer: Renderer2, private element: ElementRef, private router: Router) {
+  constructor(location: Location, private renderer: Renderer2, private element: ElementRef, private router: Router,
+              public auth: AuthService) {
     this.location = location;
     this.nativeElement = element.nativeElement;
     this.sidebarVisible = false;
@@ -39,13 +42,13 @@ export class NavbarComponent implements OnInit {
     });
   }
   getTitle(): any {
-    let titlee = this.location.prepareExternalUrl(this.location.path());
-    if (titlee.charAt(0) === '#') {
-      titlee = titlee.slice( 1 );
+    let title = this.location.prepareExternalUrl(this.location.path());
+    if (title.charAt(0) === '#') {
+      title = title.slice( 1 );
     }
     // tslint:disable-next-line:prefer-for-of
     for (let item = 0; item < this.listTitles.length; item++) {
-      if (this.listTitles[item].path === titlee) {
+      if (this.listTitles[item].path === title) {
         return this.listTitles[item].title;
       }
     }
@@ -77,7 +80,7 @@ export class NavbarComponent implements OnInit {
     const mainPanel =  document.getElementsByClassName('main-panel')[0] as HTMLElement;
     if (window.innerWidth < 991) {
       setTimeout(() => {
-        mainPanel.style.position = '';
+        mainPanel.style.position = 'relative';
       }, 500);
     }
     this.toggleButton.classList.remove('toggled');
@@ -87,7 +90,6 @@ export class NavbarComponent implements OnInit {
   collapse(): any {
     this.isCollapsed = !this.isCollapsed;
     const navbar = document.getElementsByTagName('nav')[0];
-    console.log(navbar);
     if (!this.isCollapsed) {
       navbar.classList.remove('navbar-transparent');
       navbar.classList.add('bg-white');
@@ -95,8 +97,13 @@ export class NavbarComponent implements OnInit {
       navbar.classList.add('navbar-transparent');
       navbar.classList.remove('bg-white');
     }
-
   }
 
+
+  mouseleave($event: MouseEvent): any {
+    setTimeout(() => {
+      return this.collapse();
+    }, 3000);
+  }
 
 }

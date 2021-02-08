@@ -122,7 +122,14 @@ export class TablesComponent implements OnInit , AfterViewInit{
   openDetails(row: any): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '96%',
-      data: { row, component: DetailsComponent},
+      data: { row : Array.of(row), component: DetailsComponent},
+    });
+  }
+
+  openEdit(row: any): any {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '90%',
+      data: { row : Array.of(row), component: EditComponent},
     });
   }
 }
@@ -182,9 +189,50 @@ export class DetailsComponent implements  OnInit{
   ) {
   }
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'ID', 'description'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource = new MatTableDataSource(this.data.row);
 
   ngOnInit(): void{
-    console.log(this.data);
+  }
+}
+
+@Component({
+  selector: 'app-details',
+  template: `
+<form ngForm  style="display: flex; flex-direction: column; justify-content: center;align-items: center ">
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="name">
+    <mat-hint>Hint</mat-hint>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Weight</mat-label>
+    <input matInput placeholder="weight">
+    <mat-hint>Hint</mat-hint>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Symbol</mat-label>
+    <input matInput placeholder="Symbol">
+    <mat-hint>Hint</mat-hint>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>ID</mat-label>
+    <input matInput placeholder="ID">
+    <mat-hint>Hint</mat-hint>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea matInput></textarea>
+  </mat-form-field>
+</form>
+  `,
+  styleUrls: ['../../../../../assets/scss/others.scss']
+})
+export class EditComponent implements  OnInit{
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+  }
+
+  ngOnInit(): void{
   }
 }

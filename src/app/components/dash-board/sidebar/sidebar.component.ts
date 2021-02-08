@@ -12,6 +12,7 @@ export const ROUTES: RouteInfo[] = [
   { path: 'dashboard',     title: 'Dashboard',         icon: 'nc-bank',       class: '' },
   { path: 'notifications', title: 'Notifications',     icon: 'nc-bell-55',    class: '' },
   { path: 'table',         title: 'Table List',        icon: 'nc-tile-56',    class: '' },
+  { path: 'logs',         title: 'Report List',        icon: 'nc-single-copy-04',    class: '' },
 
 ];
 
