@@ -20,10 +20,25 @@ import {AdminLayoutModule} from './components/dash-board/admin-layout/admin-layo
 import {MatDialogModule} from '@angular/material/dialog';
 import { TaReportComponent } from './components/dash-board/pages/ta-report/ta-report.component';
 import { RReportComponent } from './components/dash-board/pages/r-report/r-report.component';
-import {AuthService} from '../services/auth.service';
 import {HttpClientModule} from '@angular/common/http';
 import {AuthInterceptor} from './helper/auth.interceptor';
+import {JWT_OPTIONS, JwtModule} from '@auth0/angular-jwt';
 
+
+export function tokenGetter(): any {
+  return 'SOME_TOKEN';
+}
+
+export function getAuthScheme(request: any): any {
+  return 'Bearer ';
+}
+
+export function jwtOptionsFactory(): any {
+  return {
+    tokenGetter,
+    authScheme: getAuthScheme,
+  };
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +51,14 @@ import {AuthInterceptor} from './helper/auth.interceptor';
     BrowserModule,
     AppRoutingModule,
     ToastrModule.forRoot(),
+    JwtModule.forRoot(
+      {
+        jwtOptionsProvider: {
+          provide: JWT_OPTIONS,
+          useFactory: jwtOptionsFactory,
+        },
+      }
+    ),
     BrowserAnimationsModule,
     MatIconModule,
     MatInputModule,
