@@ -3,6 +3,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../../../services/auth.service';
 import {TokenStorageService} from '../../../services/token-storage.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(private formBuilder: FormBuilder, private router: Router,
-              private authService: AuthService, private tokenStorage: TokenStorageService) { }
+              private authService: AuthService, private tokenStorage: TokenStorageService,
+              public toast: ToastrService) { }
 
   ngOnInit(): void {
     if (this.tokenStorage.isLoggedIn) {
@@ -38,8 +40,9 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['admin']).then(() => console.log('logged in'));
             },
           (err: { error: { message: string; }; }) => {
-              this.errorMessage = err.error.message;
-              this.isLoginFailed = true;
+                this.toast.error('Login failed' , 'error');
+              // this.errorMessage = err.error.message;
+              // this.isLoginFailed = true;
             }
           );
       }

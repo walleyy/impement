@@ -9,7 +9,7 @@
           <span class="navbar-toggler-bar bar3"></span>
         </button>
       </div>
-      <a class="navbar-brand" href="javascript:void(0)">{{getTitle()}}</a>
+      <a class="navbar-brand" >{{getTitle()}}</a>
     </div>
     <button class="navbar-toggler" type="button" (click)="collapse()"
             [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
@@ -29,14 +29,24 @@
         </div>
       </form>
       <ul class="navbar-nav">
-<!--        <li class="nav-item">-->
-<!--          <a class="nav-link btn-magnify" href="javascript:void(0)">-->
-<!--            <i class="nc-icon nc-layout-11"></i>-->
-<!--            <p>-->
-<!--              <span class="d-lg-none d-md-block">Stats</span>-->
-<!--            </p>-->
-<!--          </a>-->
-<!--        </li>-->
+
+        <li class="nav-item" ngbDropdown placement="bottom-left" id="no-drop">
+          <a class="nav-link btn-magnify" ngbDropdownToggle id="navbarDropdownMenuLink2" >
+            <i class="nc-icon nc-bell-55" matBadge="7" matBadgeColor="warn" matBadgeSize="small" [matBadgeHidden]="hidden" (click)="toggleBadgeVisibility()"></i>
+            <p>
+              <span class="d-lg-none d-md-block">Notifications</span>
+            </p>
+          </a>
+          <div ngbDropdownMenu aria-labelledby="navbarDropdownMenuLink2" class="dropdown-menu dropdown-menu-right"  >
+            <mat-list ngbDropdownItem class="bg-custom" style="width: 18vw ;">
+              <mat-list-item *ngFor="let message of messages" style="text-overflow: ellipsis;width: 100%;overflow: hidden !important;">
+                  <span style="text-overflow: ellipsis;overflow: hidden !important;"> {{message.subject}} </span>
+                <span style="text-overflow: ellipsis;overflow: hidden !important;"> {{message.content}} </span>
+                <mat-divider></mat-divider>
+              </mat-list-item>
+            </mat-list>
+          </div>
+        </li>
 
         <li class="nav-item btn-rotate" ngbDropdown placement="bottom-left">
           <a class="nav-link" ngbDropdownToggle id="navbarDropdownMenuLink" >

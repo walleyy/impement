@@ -8,7 +8,8 @@ import {AuthService} from '../../../../../services/auth.service';
 @Component({
   moduleId: module.id,
   selector: 'app-navbar',
-  templateUrl: 'navbar.component.html'
+  templateUrl: 'navbar.component.html',
+  styleUrls: ['navbar.component.scss']
 })
 
 export class NavbarComponent implements OnInit {
@@ -25,6 +26,13 @@ export class NavbarComponent implements OnInit {
 
   public isCollapsed = true;
   @ViewChild('navbar-cmp', {static: false}) button: any;
+
+  messages: any[] = [
+    {from: 'debit', subject: 'new entry', content: 'database'},
+    {from: 'credit', subject: 'added sheetssdsddjdjsdkdjmjkfjgkfgmfmgfdssdds', content: 'database'},
+    {from: 'head', subject: 'new backups', content: 'database'},
+  ];
+  hidden = false;
 
   constructor(location: Location, private renderer: Renderer2, private element: ElementRef, private router: Router,
               public auth: AuthService) {
@@ -77,7 +85,7 @@ export class NavbarComponent implements OnInit {
   }
   sidebarClose(): any {
     const html = document.getElementsByTagName('html')[0];
-    const mainPanel =  document.getElementsByClassName('main-panel')[0] as HTMLElement;
+    const mainPanel =  document.getElementsByClassName('sidebar-wrapper')[0] as HTMLElement;
     if (window.innerWidth < 991) {
       setTimeout(() => {
         mainPanel.style.position = 'relative';
@@ -105,5 +113,7 @@ export class NavbarComponent implements OnInit {
       return this.collapse();
     }, 3000);
   }
-
+  toggleBadgeVisibility(): any {
+    this.hidden = true;
+  }
 }

@@ -1,0 +1,9 @@
+#no-drop{
+  .dropdown-toggle::after{
+  display:none;
+  }
+}
+
+mat-list{
+  padding-right: 15px !important;
+}

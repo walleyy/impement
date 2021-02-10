@@ -6,7 +6,7 @@ import { DashBoardComponent } from '../pages/dash-board/dash-board.component';
 import { UsersComponent } from '../pages/users/users.component';
 import { TablesComponent, DetailsComponent, EditComponent } from '../pages/tables/tables.component';
 import { NotificationsComponent } from '../pages/notifications/notifications.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbDropdownModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatInputModule} from '@angular/material/input';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -21,9 +21,12 @@ import {RReportComponent} from '../pages/r-report/r-report.component';
 import {TaReportComponent} from '../pages/ta-report/ta-report.component';
 import {CdkTableModule} from '@angular/cdk/table';
 import {MatIconModule} from '@angular/material/icon';
-import {AuthService} from '../../../../services/auth.service';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {AuthInterceptor} from '../../../helper/auth.interceptor';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatListModule} from '@angular/material/list';
+import {MatLineModule} from '@angular/material/core';
+import {MatDividerModule} from '@angular/material/divider';
 
 
 @NgModule({
@@ -40,7 +43,12 @@ import {AuthInterceptor} from '../../../helper/auth.interceptor';
     MatDialogModule,
     CdkTableModule,
     MatIconModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatBadgeModule,
+    MatListModule,
+    MatLineModule,
+    NgbDropdownModule,
+    MatDividerModule
   ],
   declarations: [
     DashBoardComponent,
@@ -61,7 +69,12 @@ import {AuthInterceptor} from '../../../helper/auth.interceptor';
     MatButtonModule,
     MatPaginatorModule,
     MatDialogModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatBadgeModule,
+    MatListModule,
+    MatLineModule,
+    NgbDropdownModule,
+    MatDividerModule
   ],
   entryComponents: [
     SmReportComponent,
