@@ -25,16 +25,24 @@
               <i id="i" class="nc-icon nc-single-copy-04"></i> REPORT LIST
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <div style="display: flex;flex-direction: column; align-items: baseline; "  class="pl-5">
-          <a  class="aex"> log1</a>
+          <div style="display: flex;flex-direction: column;  "  class="pl-5">
+
+              <a  class="aex" [routerLink]="[ '/admin', 'smReport']" routerLinkActive="active" >System & Monitoring </a>
+
+            <mat-divider ></mat-divider>
+              <a class="aex" [routerLink]="[ '/admin', 'taReport']"> Training & Activation</a>
+
             <mat-divider></mat-divider>
-          <a class="aex"> log2</a>
+
+              <a class="aex"  [routerLink]="[ '/admin', 'rReport']"> Recruitments</a>
+
             <mat-divider></mat-divider>
-          <a class="aex"> log3</a>
+
+              <a class="aex"> log4</a>
+
             <mat-divider></mat-divider>
-          <a class="aex"> log4</a>
-            <mat-divider></mat-divider>
-          <a class="aex"> log5</a>
+
+              <a class="aex"> log5</a>
           </div>
         </mat-expansion-panel>
 
