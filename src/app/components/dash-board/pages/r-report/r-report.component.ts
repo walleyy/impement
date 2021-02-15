@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
 
 export interface PeriodicElement {
   name: string;
@@ -25,17 +26,22 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './r-report.component.html',
   styleUrls: ['./r-report.component.scss']
 })
-export class RReportComponent implements OnInit {
+export class RReportComponent implements OnInit , AfterViewInit{
 
   constructor() { }
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
+  @ViewChild(MatPaginator) paginator: MatPaginator | undefined ;
 
   applyFilter(event: Event): any {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   ngOnInit(): void {
+  }
+  ngAfterViewInit(): void{
+    // @ts-ignore
+    this.dataSource.paginator = this.paginator;
   }
 
 }

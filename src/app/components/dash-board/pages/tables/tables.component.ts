@@ -101,7 +101,6 @@ export class TablesComponent implements OnInit , AfterViewInit{
   constructor(public dialog: MatDialog) { }
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined ;
 
-  number = 1;
 
   ngOnInit(): any{
   }

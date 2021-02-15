@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
 
 export interface PeriodicElements1 {
   name: string;
@@ -25,13 +26,17 @@ const ELEMENT_DATA: PeriodicElements1[] = [
   templateUrl: './ta-report.component.html',
   styleUrls: ['./ta-report.component.scss']
 })
-export class TaReportComponent implements OnInit {
+export class TaReportComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
-
+  @ViewChild(MatPaginator) paginator: MatPaginator | undefined ;
   constructor() { }
 
   ngOnInit(): void {
+  }
+  ngAfterViewInit(): void{
+    // @ts-ignore
+    this.dataSource.paginator = this.paginator;
   }
     applyFilter(event: Event): any {
       const filterValue = (event.target as HTMLInputElement).value;
