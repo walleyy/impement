@@ -58,7 +58,9 @@ import {MatDividerModule} from '@angular/material/divider';
     DialogComponent,
     SmReportComponent,
     DetailsComponent,
-    EditComponent
+    EditComponent,
+    TaReportComponent,
+    RReportComponent,
   ],
   exports: [
     MatInputModule,

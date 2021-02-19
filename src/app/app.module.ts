@@ -18,8 +18,6 @@ import {NavbarModule} from './components/dash-board/shared/navbar/navbar.module'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {AdminLayoutModule} from './components/dash-board/admin-layout/admin-layout.module';
 import {MatDialogModule} from '@angular/material/dialog';
-import { TaReportComponent } from './components/dash-board/pages/ta-report/ta-report.component';
-import { RReportComponent } from './components/dash-board/pages/r-report/r-report.component';
 import {HttpClientModule} from '@angular/common/http';
 import {AuthInterceptor} from './helper/auth.interceptor';
 import {JWT_OPTIONS, JwtModule} from '@auth0/angular-jwt';
@@ -43,9 +41,7 @@ export function jwtOptionsFactory(): any {
   declarations: [
     AppComponent,
     LoginComponent,
-    AdminLayoutComponent,
-    TaReportComponent,
-    RReportComponent,
+    AdminLayoutComponent
   ],
   imports: [
     BrowserModule,
