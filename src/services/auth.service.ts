@@ -12,7 +12,8 @@ export  interface User {
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
-const AUTH_API = 'https://localhost:3000/';
+const AUTH_API = 'http://localhost:8080/api/auth/login';
+
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +26,8 @@ export class AuthService {
     this.router.navigate(['login']).then( () => console.log('logged out'));
   }
 
-  login(name: any, password: any): any {
-    return this.http.post(AUTH_API, {name, password}, httpOptions)
+  login(username: any, password: any): any {
+    return this.http.post(AUTH_API, {username, password}, httpOptions)
       .pipe(
         shareReplay());
   }

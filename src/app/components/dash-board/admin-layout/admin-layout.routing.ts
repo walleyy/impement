@@ -7,6 +7,7 @@ import { NotificationsComponent } from '../pages/notifications/notifications.com
 import {SmReportComponent} from '../pages/sm-report/sm-report.component';
 import {TaReportComponent} from '../pages/ta-report/ta-report.component';
 import {RReportComponent} from '../pages/r-report/r-report.component';
+import {AccountActivationComponent} from '../pages/account-activation/account-activation.component';
 
 export const AdminLayoutRoutes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
@@ -17,4 +18,5 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'smReport',  component: SmReportComponent },
   { path: 'taReport',  component: TaReportComponent },
   { path: 'rReport',  component: RReportComponent },
+  { path: 'accReport',  component: AccountActivationComponent },
 ];

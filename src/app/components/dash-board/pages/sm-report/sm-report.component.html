@@ -1,36 +1,143 @@
 <div class="container">
   <mat-form-field>
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
-  </mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+</mat-form-field>
+<div class="mat-elevation-z8" >
 
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<div class="containerSm">
+  <table mat-table [dataSource]="dataSource" >
 
     <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    <ng-container matColumnDef="id"  sticky >
+      <th mat-header-cell *matHeaderCellDef> id. </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    <ng-container matColumnDef="createdAt"  >
+      <th mat-header-cell *matHeaderCellDef> created_at </th>
+      <td mat-cell *matCellDef="let element"> {{element.created_at}} </td>
     </ng-container>
 
     <!-- Weight Column -->
-    <ng-container matColumnDef="weight">
-      <th mat-header-cell *matHeaderCellDef> Weight </th>
-      <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+    <ng-container matColumnDef="updatedAt"  >
+      <th mat-header-cell *matHeaderCellDef> updated_at </th>
+      <td mat-cell *matCellDef="let element"> {{element.updated_at}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="agentCode" >
+      <th mat-header-cell *matHeaderCellDef> agent_Code </th>
+      <td mat-cell *matCellDef="let element"> {{element.agent_code}} </td>
     </ng-container>
 
     <!-- Symbol Column -->
-    <ng-container matColumnDef="symbol">
-      <th mat-header-cell *matHeaderCellDef> Symbol </th>
-      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+    <ng-container matColumnDef="agentName">
+      <th mat-header-cell *matHeaderCellDef> agent_name </th>
+      <td mat-cell *matCellDef="let element"> {{element.agent_name}} </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <ng-container matColumnDef="appState">
+      <th mat-header-cell *matHeaderCellDef> app_state </th>
+      <td mat-cell *matCellDef="let element"> {{element.app_state}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="appAction">
+      <th mat-header-cell *matHeaderCellDef> app_action </th>
+      <td mat-cell *matCellDef="let element"> {{element.app_action}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="branded">
+      <th mat-header-cell *matHeaderCellDef> branded </th>
+      <td mat-cell *matCellDef="let element"> {{element.branded}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="brandedAction">
+      <th mat-header-cell *matHeaderCellDef> branded_action </th>
+      <td mat-cell *matCellDef="let element"> {{element.branded_action}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cashOut">
+      <th mat-header-cell *matHeaderCellDef> cash_out </th>
+      <td mat-cell *matCellDef="let element"> {{element.cash_out}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="collectStationary">
+      <th mat-header-cell *matHeaderCellDef> collect_stationary </th>
+      <td mat-cell *matCellDef="let element"> {{element.collect_stationary}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="collectStationaryNeed">
+      <th mat-header-cell *matHeaderCellDef> collect_stationary_need </th>
+      <td mat-cell *matCellDef="let element"> {{element.collect_stationary_need}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="latitude">
+      <th mat-header-cell *matHeaderCellDef> latitude </th>
+      <td mat-cell *matCellDef="let element"> {{element.latitude}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="longitude">
+      <th mat-header-cell *matHeaderCellDef> longitude </th>
+      <td mat-cell *matCellDef="let element"> {{element.longitude}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef> phone </th>
+      <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="posAction">
+      <th mat-header-cell *matHeaderCellDef> pos_action </th>
+      <td mat-cell *matCellDef="let element"> {{element.pos_action}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="posState">
+      <th mat-header-cell *matHeaderCellDef> pos_state </th>
+      <td mat-cell *matCellDef="let element"> {{element.pos_state}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="registerAction">
+      <th mat-header-cell *matHeaderCellDef> register_action </th>
+      <td mat-cell *matCellDef="let element"> {{element.register_action}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="registerPic">
+      <th mat-header-cell *matHeaderCellDef> register_pic </th>
+      <td mat-cell *matCellDef="let element"> {{element.register_pic}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="registerState">
+      <th mat-header-cell *matHeaderCellDef> register_state </th>
+      <td mat-cell *matCellDef="let element"> {{element.register_state}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="suppot">
+      <th mat-header-cell *matHeaderCellDef> support </th>
+      <td mat-cell *matCellDef="let element"> {{element.suppot}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="supportNeed">
+      <th mat-header-cell *matHeaderCellDef> support_need </th>
+      <td mat-cell *matCellDef="let element"> {{element.support_need}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="troubleshooting">
+      <th mat-header-cell *matHeaderCellDef> troubleshooting </th>
+      <td mat-cell *matCellDef="let element"> {{element.troubleshooting}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="troubleshootingNeed">
+      <th mat-header-cell *matHeaderCellDef> troubleshooting_need </th>
+      <td mat-cell *matCellDef="let element"> {{element.troubleshooting_need}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="userId" stickyEnd >
+      <th mat-header-cell *matHeaderCellDef> user_id </th>
+      <td mat-cell *matCellDef="let element"> {{element.user_id}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
     <!-- Row shown when there is no matching data. -->
@@ -38,6 +145,7 @@
       <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
     </tr>
   </table>
+</div>
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-
+</div>
 </div>

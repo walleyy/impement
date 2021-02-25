@@ -27,6 +27,7 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatListModule} from '@angular/material/list';
 import {MatLineModule} from '@angular/material/core';
 import {MatDividerModule} from '@angular/material/divider';
+import {AccountActivationComponent} from '../pages/account-activation/account-activation.component';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import {MatDividerModule} from '@angular/material/divider';
     EditComponent,
     TaReportComponent,
     RReportComponent,
+    AccountActivationComponent
   ],
   exports: [
     MatInputModule,

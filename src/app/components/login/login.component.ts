@@ -15,8 +15,8 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
 
   loginForm = this.formBuilder.group({
-    name: ['', Validators.required],
-    password: ['', [Validators.required, Validators.minLength(12)]]
+    username: ['', Validators.required],
+    password: ['', [Validators.required, Validators.minLength(5)]]
   });
 
   constructor(private formBuilder: FormBuilder, private router: Router,
@@ -30,13 +30,14 @@ export class LoginComponent implements OnInit {
   }
 
   check(value: any): any {
-    if (value.name && value.password) {
-      console.log(value.name, value.password);
-      this.authService.login(value.name, value.password).
+    if (value.username && value.password) {
+      console.log(value.username, value.password);
+      this.authService.login(value.username, value.password).
         subscribe(
-              (data: { accessToken: string; }) => {
+              (data: any) => {
                 this.tokenStorage.saveToken(data.accessToken);
                 // this.tokenStorage.saveUser(data);
+                console.log(data.accessToken);
                 this.router.navigate(['admin']).then(() => console.log('logged in'));
             },
           (err: { error: { message: string; }; }) => {

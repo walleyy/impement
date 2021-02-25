@@ -1,27 +1,38 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
+import {SysMonitoringService} from '../../../../../services/dataForTable/sys-monitoring.service';
 
 
-export interface PeriodicElements {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+export interface SupportMonitoring {
+  id: bigint;
+  created_at: Date;
+  updated_at: Date;
+  agent_code: string;
+  agent_name: string;
+  app_state: number;
+  app_action: string;
+  branded: number;
+  branded_action: string;
+  cash_out: number;
+  collect_stationary: number;
+  collect_stationary_need: string;
+  latitude: string;
+  longitude: string;
+  phone: string;
+  pos_action: string;
+  pos_state: number;
+  register_action: string;
+  register_pic: string;
+  register_state: number;
+  suppot: number;
+  support_need: string;
+  troubleshooting: number;
+  troubleshooting_need: string;
+  user_id: bigint;
 }
 
-const ELEMENT_DATA: PeriodicElements[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+
 
 @Component({
   selector: 'app-sm-report',
@@ -29,10 +40,48 @@ const ELEMENT_DATA: PeriodicElements[] = [
   styleUrls: ['./sm-report.component.scss']
 })
 export class SmReportComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+
+  supportData: [] = [];
+ support2 = [
+  {
+    id: 1,
+    created_at: 2242020,
+    updated_at: 23420201,
+    agent_code: 'bama',
+    agent_name: 'sata',
+    app_state: 344,
+    app_action: 'safe',
+    branded: 23,
+    branded_action: 'ac',
+    cash_out: 23,
+    collect_stationary: 3,
+    collect_stationary_need: 'sas',
+    latitude: 'sad',
+    longitude: 'asf',
+    phone: '098709876',
+    pos_action: 'safe',
+    pos_state: 1,
+    register_action: 'asf',
+    register_pic: 'asf',
+    register_state: 3,
+    suppot: 3,
+    support_need: 'ask',
+    troubleshooting: 34,
+    troubleshooting_need: 'string',
+    user_id: 3444444444444,
+  }
+];
+  displayedColumns: string[] = ['id', 'createdAt', 'updatedAt', 'agentCode', 'agentName', 'appState',
+    'appAction', 'branded', 'brandedAction', 'cashOut', 'collectStationary', 'collectStationaryNeed', 'latitude',
+    'longitude', 'phone', 'posAction', 'posState', 'registerAction', 'registerPic', 'registerState', 'suppot',
+    'supportNeed', 'troubleshooting', 'troubleshootingNeed', 'userId'];
+  dataSource = new MatTableDataSource(this.support2);
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined ;
-  constructor() { }
+
+
+  constructor( private supportService: SysMonitoringService) {
+    this.supportData = this.supportService.getMonitoring();
+  }
 
   ngOnInit(): void {
   }
