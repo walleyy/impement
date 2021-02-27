@@ -1,6 +1,6 @@
 table{
   width: 100%;
-  overflow: scroll;
+  table-layout: fixed;
 }
 .containerSm{
   height: 100%;
@@ -11,19 +11,19 @@ table{
 
 .mat-table-sticky-border-elem-right {
   border-left: 1px solid #e0e0e0;
+  padding: 20px;
 }
 
 .mat-table-sticky-border-elem-left {
-  border-right: 1px solid #e0e0e0;
+  border-right: 1px solid #e0e0e0;padding: 20px;
 }
 th.mat-column-position, td.mat-column-position {
-  padding-left: 8px;
+  padding: 18px;
 }
-mat-cell{
-  mat-header-row,mat-header-cell{
-    width: 20px;
-    padding-right: 15px;
-    margin: 15px;
-  }
 
+th, td {
+  overflow: hidden;
+  width: 150px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

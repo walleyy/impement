@@ -103,6 +103,7 @@ export class TablesComponent implements OnInit , AfterViewInit{
 
 
   ngOnInit(): any{
+    console.log(ELEMENT_DATA);
   }
 
   ngAfterViewInit(): void{

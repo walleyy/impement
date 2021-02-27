@@ -1,20 +1,17 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
+import {AccountActivationService} from '../../../../../services/dataForTable/account-activation.service';
 
 export interface AccountActivation {
   id: bigint;
-  created_at: Date;
-  updated_at: Date;
-  agent_name: string;
-  device_action: string;
-  device_available: number;
+  createdAt: Date;
+  updatedAt: Date;
+  accountNo: string;
+  custName: string;
   latitude: string;
-  location: string;
   longitude: string;
   phone: string;
-  course_id: string;
-  user_id: string;
 }
 
 @Component({
@@ -24,25 +21,36 @@ export interface AccountActivation {
 })
 export class AccountActivationComponent implements OnInit, AfterViewInit {
 
-  accountActivation: [] = [];
+  accountActivation: AccountActivation[] = [];
 
-  displayedColumns: string[] = ['id', 'createdAt', 'updatedAt', 'agentName', 'deviceAction',
-    'deviceAvailable', 'latitude', 'location', 'longitude', 'phone', 'courseId', 'userId'];
+  displayedColumns: string[] = ['id', 'createdAt', 'updatedAt', 'accountNo', 'customerName',
+    'latitude', 'longitude', 'phone'];
   dataSource = new MatTableDataSource(this.accountActivation);
 
-  @ViewChild(MatPaginator) paginator: MatPaginator | undefined ;
+  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
-  constructor() { }
+  constructor(private accService: AccountActivationService) {
+    this.accService.getAccountActData().subscribe(
+      (acctData: any) => {
+        this.accountActivation = acctData;
+        this.dataSource = new MatTableDataSource(this.accountActivation);
+      },
+      ((err: any) => console.log(err))
+    );
+  }
 
   ngOnInit(): void {
   }
 
-  ngAfterViewInit(): void{
+  ngAfterViewInit(): void {
     // @ts-ignore
     this.dataSource.paginator = this.paginator;
   }
+
   applyFilter(event: Event): any {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+
 }

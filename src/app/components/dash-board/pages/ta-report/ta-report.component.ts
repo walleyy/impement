@@ -5,17 +5,17 @@ import {TrainActivationService} from '../../../../../services/dataForTable/train
 
 export interface TrainingActivation {
   id: bigint;
-  created_at: Date;
-  updated_at: Date;
-  agent_name: string;
-  device_action: string;
-  device_available: number;
+  createdAt: Date;
+  updatedAt: Date;
+  agentName: string;
+  deviceAction: string;
+  deviceAvailable: number;
   latitude: string;
   location: string;
   longitude: string;
   phone: string;
-  course_id: string;
-  user_id: string;
+  courseId: string;
+  userId: string;
 }
 
 
@@ -35,7 +35,14 @@ export class TaReportComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined ;
 
   constructor(private trainActivation: TrainActivationService) {
-    this.trainingActivation = trainActivation.getTraining();
+    this.trainActivation.getTraining().subscribe(
+      (trainData: any) => {
+        this.trainingActivation = trainData;
+        console.log(trainData);
+        this.dataSource = new MatTableDataSource(this.trainingActivation);
+      },
+      ((err: any) => console.log(err))
+    );
   }
 
   ngOnInit(): void {}
