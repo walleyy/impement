@@ -21,7 +21,6 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {HttpClientModule} from '@angular/common/http';
 import {AuthInterceptor} from './helper/auth.interceptor';
 import {JWT_OPTIONS, JwtModule} from '@auth0/angular-jwt';
-import { AccountActivationComponent } from './components/dash-board/pages/account-activation/account-activation.component';
 
 
 export function tokenGetter(): any {

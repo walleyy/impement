@@ -12,7 +12,7 @@ const routes: Routes = [
     component: AdminLayoutComponent,
     children: [
       {
-        path: '',
+        path: '', canActivate: [AuthGuard],
         loadChildren: './components/dash-board/admin-layout/admin-layout.module#AdminLayoutModule'
       }]},
   {path: '**', redirectTo: 'login'},

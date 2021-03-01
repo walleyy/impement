@@ -5,15 +5,15 @@ import {RecruitmentService} from '../../../../../services/dataForTable/recruitme
 
 export interface Recruitment {
   id: bigint;
-  created_at: Date;
-  updated_at: Date;
-  docs_collect_date: Date;
-  kyc_doc_available: number;
+  createdAt: Date;
+  updatedAt: Date;
+  docsCollectDate: Date;
+  kycDocsAvailable: number;
   latitude: string;
   location: string;
   longitude: string;
   phone: string;
-  prospect_name: string;
+  prospectName: string;
 }
 
 @Component({
@@ -26,7 +26,14 @@ export class RReportComponent implements OnInit , AfterViewInit{
   recruitData: [] = [];
 
   constructor(private recruitService: RecruitmentService) {
-    this.recruitData = recruitService.getRecruitData();
+    this.recruitData = recruitService.getRecruitData().subscribe(
+      (recruitData: any) => {
+        this.recruitData = recruitData;
+        console.log(recruitData);
+        this.dataSource = new MatTableDataSource(this.recruitData);
+      },
+      ((err: any) => console.log(err))
+    );
   }
 
   displayedColumns: string[] = ['id', 'createdAt', 'updatedAt', 'docsCollectionDate', 'kycDocAvailable', 'latitude',

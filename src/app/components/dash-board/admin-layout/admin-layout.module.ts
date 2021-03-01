@@ -28,6 +28,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatLineModule} from '@angular/material/core';
 import {MatDividerModule} from '@angular/material/divider';
 import {AccountActivationComponent} from '../pages/account-activation/account-activation.component';
+import {AccountOpeningComponent} from '../pages/account-opening/account-opening.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import {AccountActivationComponent} from '../pages/account-activation/account-ac
     EditComponent,
     TaReportComponent,
     RReportComponent,
-    AccountActivationComponent
+    AccountActivationComponent,
+    AccountOpeningComponent
   ],
   exports: [
     MatInputModule,
