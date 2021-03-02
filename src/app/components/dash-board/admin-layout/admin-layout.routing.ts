@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 import { DashBoardComponent } from '../pages/dash-board/dash-board.component';
 import { UsersComponent } from '../pages/users/users.component';
-import { TablesComponent } from '../pages/tables/tables.component';
+import { TablesComponent } from '../pages/task/tables.component';
 import { NotificationsComponent } from '../pages/notifications/notifications.component';
 import {SmReportComponent} from '../pages/sm-report/sm-report.component';
 import {TaReportComponent} from '../pages/ta-report/ta-report.component';

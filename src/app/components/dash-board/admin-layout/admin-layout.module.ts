@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { DashBoardComponent } from '../pages/dash-board/dash-board.component';
 import { UsersComponent } from '../pages/users/users.component';
-import { TablesComponent, DetailsComponent, EditComponent } from '../pages/tables/tables.component';
+import { TablesComponent, DetailsComponent, EditComponent } from '../pages/task/tables.component';
 import { NotificationsComponent } from '../pages/notifications/notifications.component';
 import {NgbDropdownModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatInputModule} from '@angular/material/input';
