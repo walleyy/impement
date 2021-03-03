@@ -22,7 +22,6 @@ import {HttpClientModule} from '@angular/common/http';
 import {AuthInterceptor} from './helper/auth.interceptor';
 import {JWT_OPTIONS, JwtModule} from '@auth0/angular-jwt';
 
-
 export function tokenGetter(): any {
   return 'SOME_TOKEN';
 }
@@ -41,20 +40,18 @@ export function jwtOptionsFactory(): any {
   declarations: [
     AppComponent,
     LoginComponent,
-    AdminLayoutComponent,
+    AdminLayoutComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ToastrModule.forRoot(),
-    JwtModule.forRoot(
-      {
+    JwtModule.forRoot({
         jwtOptionsProvider: {
           provide: JWT_OPTIONS,
           useFactory: jwtOptionsFactory,
         },
-      }
-    ),
+      }),
     BrowserAnimationsModule,
     MatIconModule,
     MatInputModule,

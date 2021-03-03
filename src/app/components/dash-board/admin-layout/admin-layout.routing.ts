@@ -9,6 +9,7 @@ import {TaReportComponent} from '../pages/ta-report/ta-report.component';
 import {RReportComponent} from '../pages/r-report/r-report.component';
 import {AccountActivationComponent} from '../pages/account-activation/account-activation.component';
 import {AccountOpeningComponent} from '../pages/account-opening/account-opening.component';
+import {ManageUsersComponent} from '../pages/manage-users/manage-users.component';
 
 export const AdminLayoutRoutes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
@@ -21,4 +22,5 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'rReport',  component: RReportComponent },
   { path: 'accReport',  component: AccountActivationComponent },
   { path: 'accOpening',  component: AccountOpeningComponent },
+  { path: 'manageUsers',  component: ManageUsersComponent },
 ];

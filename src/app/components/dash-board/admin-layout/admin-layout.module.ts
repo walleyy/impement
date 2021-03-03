@@ -29,6 +29,8 @@ import {MatLineModule} from '@angular/material/core';
 import {MatDividerModule} from '@angular/material/divider';
 import {AccountActivationComponent} from '../pages/account-activation/account-activation.component';
 import {AccountOpeningComponent} from '../pages/account-opening/account-opening.component';
+import {ManageUsersComponent} from '../pages/manage-users/manage-users.component';
+import {MatSortModule} from '@angular/material/sort';
 
 
 @NgModule({
@@ -50,7 +52,8 @@ import {AccountOpeningComponent} from '../pages/account-opening/account-opening.
     MatListModule,
     MatLineModule,
     NgbDropdownModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSortModule
   ],
   declarations: [
     DashBoardComponent,
@@ -64,7 +67,8 @@ import {AccountOpeningComponent} from '../pages/account-opening/account-opening.
     TaReportComponent,
     RReportComponent,
     AccountActivationComponent,
-    AccountOpeningComponent
+    AccountOpeningComponent,
+    ManageUsersComponent
   ],
   exports: [
     MatInputModule,
@@ -80,7 +84,8 @@ import {AccountOpeningComponent} from '../pages/account-opening/account-opening.
     MatListModule,
     MatLineModule,
     NgbDropdownModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSortModule
   ],
   entryComponents: [
     SmReportComponent,

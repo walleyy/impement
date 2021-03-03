@@ -14,7 +14,7 @@
         <div  *ngIf="toggleButton" >
           <div  style="float: right;flex-direction: row ">
             <mat-form-field  [formGroup]="newItem" appearance="fill" style="width: fit-content" >
-              <mat-label></mat-label>
+              <mat-label>new task</mat-label>
               <input matInput placeholder=" task name" formControlName="name"  >
             </mat-form-field>
             <button mat-button  (click)="createTask(newItem.value)">create<mat-icon style="transform: scale(0.7)">add</mat-icon></button>
@@ -22,7 +22,7 @@
         </div>
 
           <div  class="mat-elevation-z8 " >
-             <table mat-table [dataSource]="dataSource"  >
+             <table mat-table [dataSource]="dataSource"  matSort >
 
             <!-- Position Column -->
             <ng-container matColumnDef="id">

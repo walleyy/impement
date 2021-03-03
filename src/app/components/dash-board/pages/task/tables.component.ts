@@ -38,6 +38,7 @@ export class TablesComponent implements OnInit , AfterViewInit{
       (task: any) => {
         this.tasks = task;
         this.dataSource = new MatTableDataSource(this.tasks);
+        this.ngAfterViewInit();
       },
       ((err: any) => console.log(err))
     );

@@ -11,8 +11,6 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  isLoginFailed = false;
-  errorMessage = '';
 
   loginForm = this.formBuilder.group({
     username: ['', Validators.required],

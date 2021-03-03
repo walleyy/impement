@@ -19,18 +19,18 @@
     </li>
     <li >
       <mat-accordion>
-        <mat-expansion-panel hideToggle>
+        <mat-expansion-panel >
           <mat-expansion-panel-header>
             <mat-panel-title   style="align-items: flex-start;color: grey;display: flex;justify-content: flex-start">
               <i id="i" class="nc-icon nc-single-copy-04"></i> REPORT LIST
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <div style="display: flex;flex-direction: column;  "  class="pl-5">
+          <div style="display: flex;flex-direction: column;  "  class="pl-5 bg-custom">
 
               <a  class="aex" [routerLink]="[ '/admin', 'smReport']" routerLinkActive="active" >SUPPORT & MONITORING </a>
 
             <mat-divider ></mat-divider>
-              <a class="aex" [routerLink]="[ '/admin', 'taReport']"> TRAINING </a>
+              <a class="aex mat-menu-item" [routerLink]="[ '/admin', 'taReport']"> TRAINING </a>
 
             <mat-divider></mat-divider>
 
