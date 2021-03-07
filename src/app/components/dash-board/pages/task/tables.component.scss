@@ -40,3 +40,21 @@ th ,.mat-header-cell{
 }
 
 
+.editItem{
+  color: #1DC7EA;
+}
+.deleteItem{
+  color: red;
+}
+.preview{
+  color: lightseagreen;
+}
+
+#edi{
+  th, td {
+    overflow: hidden;
+    width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

@@ -17,33 +17,36 @@
         <p>{{menuItem.title}}</p>
       </a>
     </li>
-    <li >
-      <mat-accordion>
+    <li  >
+      <mat-accordion class="nav">
         <mat-expansion-panel >
           <mat-expansion-panel-header>
             <mat-panel-title   style="align-items: flex-start;color: grey;display: flex;justify-content: flex-start">
               <i id="i" class="nc-icon nc-single-copy-04"></i> REPORT LIST
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <div style="display: flex;flex-direction: column;  "  class="pl-5 bg-custom">
+          <ul style="display: flex;flex-direction: column;"  class="bg-custom">
 
-              <a  class="aex" [routerLink]="[ '/admin', 'smReport']" routerLinkActive="active" >SUPPORT & MONITORING </a>
-
+             <li  routerLinkActive="active">
+               <a   [routerLink]="[ '/admin', 'smReport']"  >SUPPORT & MONITORING </a>
+             </li>
             <mat-divider ></mat-divider>
-              <a class="aex mat-menu-item" [routerLink]="[ '/admin', 'taReport']"> TRAINING </a>
-
+            <li  routerLinkActive="active">
+              <a class="aex " [routerLink]="[ '/admin', 'taReport']" > TRAINING </a>
+            </li>
             <mat-divider></mat-divider>
-
-              <a class="aex"  [routerLink]="[ '/admin', 'rReport']"> RECRUITMENTS</a>
-
+            <li  routerLinkActive="active">
+              <a class="aex"  [routerLink]="[ '/admin', 'rReport']"  > RECRUITMENTS</a>
+            </li>
             <mat-divider></mat-divider>
-
-              <a class="aex"  [routerLink]="[ '/admin', 'accReport']"> ACCOUNT ACTIVATION</a>
-
+            <li  routerLinkActive="active">
+              <a class="aex"  [routerLink]="[ '/admin', 'accReport']"  > ACCOUNT ACTIVATION</a>
+            </li>
             <mat-divider></mat-divider>
-
-              <a class="aex"  [routerLink]="[ '/admin', 'accOpening']"> ACCOUNT OPENING</a>
-          </div>
+            <li  routerLinkActive="active">
+              <a class="aex"  [routerLink]="[ '/admin', 'accOpening']"  > ACCOUNT OPENING</a>
+            </li>
+          </ul>
         </mat-expansion-panel>
 
       </mat-accordion>

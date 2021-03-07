@@ -8,81 +8,107 @@
       <table mat-table [dataSource]="dataSource" matSort>
 
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef> id. </th>
+          <th mat-header-cell  mat-sort-header *matHeaderCellDef> id. </th>
           <td mat-cell *matCellDef="let element"> {{element.id}} </td>
         </ng-container>
 
         <ng-container matColumnDef="createdAt">
-          <th mat-header-cell *matHeaderCellDef> created_at </th>
+          <th mat-header-cell  mat-sort-header *matHeaderCellDef> created_at </th>
           <td mat-cell *matCellDef="let element"> {{element.createdAt}} </td>
         </ng-container>
 
         <ng-container matColumnDef="updatedAt">
-          <th mat-header-cell *matHeaderCellDef> updated_at </th>
+          <th mat-header-cell  mat-sort-header *matHeaderCellDef> updated_at </th>
           <td mat-cell *matCellDef="let element"> {{element.updatedAt}} </td>
         </ng-container>
 
         <ng-container matColumnDef="accountNo">
-          <th mat-header-cell *matHeaderCellDef> account_no </th>
+          <th mat-header-cell  mat-sort-header *matHeaderCellDef> account_no </th>
           <td mat-cell *matCellDef="let element"> {{element.accountNo}} </td>
         </ng-container>
 
         <ng-container matColumnDef="accountType">
-          <th mat-header-cell *matHeaderCellDef> Account_type </th>
+          <th mat-header-cell  mat-sort-header *matHeaderCellDef> Account_type </th>
           <td mat-cell *matCellDef="let element"> {{element.accountType}} </td>
         </ng-container>
 
         <ng-container matColumnDef="custName">
-          <th mat-header-cell *matHeaderCellDef> customer_name </th>
+          <th mat-header-cell  mat-sort-header *matHeaderCellDef> customer_name </th>
           <td mat-cell *matCellDef="let element"> {{element.custName}} </td>
         </ng-container>
 
         <ng-container matColumnDef="custTrained">
-          <th mat-header-cell *matHeaderCellDef> customer_trained </th>
+          <th mat-header-cell  mat-sort-header *matHeaderCellDef> customer_trained </th>
           <td mat-cell *matCellDef="let element"> {{element.custTrained}} </td>
         </ng-container>
 
         <ng-container matColumnDef="custTrainedReason">
-          <th mat-header-cell *matHeaderCellDef> customer_reason </th>
+          <th mat-header-cell  mat-sort-header *matHeaderCellDef> customer_reason </th>
           <td mat-cell *matCellDef="let element"> {{element.custTrainedReason}} </td>
         </ng-container>
 
         <ng-container matColumnDef="formPic">
-          <th mat-header-cell *matHeaderCellDef> form_pic </th>
+          <th mat-header-cell  mat-sort-header *matHeaderCellDef> form_pic </th>
           <td mat-cell *matCellDef="let element"> {{element.formPic}} </td>
         </ng-container>
 
         <ng-container matColumnDef="kycDocsAvailable">
-          <th mat-header-cell *matHeaderCellDef> kyc_docs_available </th>
+          <th mat-header-cell  mat-sort-header *matHeaderCellDef> kyc_docs_available </th>
           <td mat-cell *matCellDef="let element"> {{element.kycDocsAvailable}} </td>
         </ng-container>
 
         <ng-container matColumnDef="kycDocsMissing">
-          <th mat-header-cell *matHeaderCellDef> kyc_docs_missing </th>
+          <th mat-header-cell  mat-sort-header *matHeaderCellDef> kyc_docs_missing </th>
           <td mat-cell *matCellDef="let element"> {{element.kycDocsMissing}} </td>
         </ng-container>
 
         <ng-container matColumnDef="latitude">
-          <th mat-header-cell *matHeaderCellDef> latitude </th>
+          <th mat-header-cell  mat-sort-header *matHeaderCellDef> latitude </th>
           <td mat-cell *matCellDef="let element"> {{element.latitude}} </td>
         </ng-container>
 
         <ng-container matColumnDef="longitude">
-          <th mat-header-cell *matHeaderCellDef> longitude </th>
+          <th mat-header-cell  mat-sort-header *matHeaderCellDef> longitude </th>
           <td mat-cell *matCellDef="let element"> {{element.longitude}} </td>
         </ng-container>
 
         <ng-container matColumnDef="phone">
-          <th mat-header-cell *matHeaderCellDef> phone </th>
+          <th mat-header-cell  mat-sort-header *matHeaderCellDef> phone </th>
           <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <ng-container matColumnDef="action"  >
+          <th style="padding-left: 5vw" mat-header-cell *matHeaderCellDef >Actions</th>
+          <mat-cell *matCellDef="let row" >
+
+            <td class="row " cdk-cell style="display: flex; justify-content: space-evenly;align-items: center"   >
+              <button mat-button  (click)="openEdit(row)"><mat-icon class="editItem">edit</mat-icon></button>
+              <button mat-button  (click)="Delete(row)"><mat-icon class="deleteItem">delete</mat-icon></button>
+            </td>
+          </mat-cell>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
+        <div *ngIf="searchingOn">
         <tr class="mat-row" *matNoDataRow>
           <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
         </tr>
+      </div>
+
+        <div disabled="!isLoading"
+             style="display: flex; justify-content: center; align-items: center; background: white;height: 25vh">
+          <tr class="mat-row" *matNoDataRow >
+            <td class=" mat-cell" colspan="15" style="justify-content: center;align-items: center;">
+              <mat-progress-spinner
+                color="primary"
+                mode="indeterminate">
+              </mat-progress-spinner>
+            </td>
+          </tr>
+
+        </div>
       </table>
     </div>
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>

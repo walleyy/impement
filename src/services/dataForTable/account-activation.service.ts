@@ -23,11 +23,11 @@ export class AccountActivationService {
   }
 
   createAccActivation(account: AccountActivation): object{
-    return this.http.post(URI, {account});
+    return this.http.post(URI, account);
   }
 
-  updateAccActivation(account: Account , id: number): any {
-    return this.http.put(URI + '/' + `${id}` , {account});
+  updateAccActivation(account: AccountActivation , id: number): any {
+    return this.http.put(URI + '/' + `${id}` , account);
   }
 
   deleteAccActivation(id: number): any {

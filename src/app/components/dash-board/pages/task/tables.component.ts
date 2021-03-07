@@ -33,19 +33,18 @@ export class TablesComponent implements OnInit , AfterViewInit{
   });
 
   constructor(public dialog: MatDialog, private taskService: TaskService,
-              public formBuilder: FormBuilder, public toast: ToastrService) {
-    this.taskService.getTask().subscribe(
-      (task: any) => {
-        this.tasks = task;
-        this.dataSource = new MatTableDataSource(this.tasks);
-        this.ngAfterViewInit();
-      },
-      ((err: any) => console.log(err))
-    );
-  }
+              public formBuilder: FormBuilder, public toast: ToastrService) {}
 
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined ;
   ngOnInit(): any{
+    this.taskService.getTask().subscribe(
+    (task: any) => {
+      this.tasks = task;
+      this.dataSource = new MatTableDataSource(this.tasks);
+      this.ngAfterViewInit();
+    },
+    ((err: any) => console.log(err))
+  );
   }
 
   ngAfterViewInit(): void{
@@ -90,7 +89,7 @@ export class TablesComponent implements OnInit , AfterViewInit{
      dialogRef.afterClosed().subscribe(
        results => {
          this.dataSource = new MatTableDataSource(this.tasks);
-         window.location.reload();
+         this.ngOnInit();
        }
      );
   }
@@ -118,7 +117,8 @@ this.toggleButton = !this.toggleButton;
   selector: 'app-details',
   template: `
   <div>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%">
+    <table mat-table id="edi" [dataSource]="dataSource" class="mat-elevation-z8" style=";table-layout:fixed;
+    ;width: 100%">
 
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
@@ -164,30 +164,32 @@ export class DetailsComponent implements  OnInit{
 }
 
 @Component({
-  selector: 'app-details',
+  selector: 'app-edit',
   template: `
 <form ngForm  style="display: flex; flex-direction: column; justify-content: center;align-items: center " [formGroup]="EditDetails">
-<!--  <mat-form-field appearance="outline">-->
-<!--    <mat-label></mat-label>-->
-<!--    <input matInput placeholder="ID">-->
-<!--    <mat-hint>Hint</mat-hint>-->
-<!--  </mat-form-field>-->
   <mat-form-field appearance="outline">
     <mat-label>name</mat-label>
     <textarea matInput  placeholder="name" formControlName="name"></textarea>
   </mat-form-field>
 </form>
-<div style="float: right" >
-  <button mat-button  (click)="saveData(EditDetails.value)">
-    <mat-icon>save_alt</mat-icon>save
-  </button>
+<div class="row">
+  <div style="float: left">
+    <button mat-button  (click)="clear()" >clear</button>
+  </div>
+  <span style="flex: 1 1 auto"></span>
+  <div style="float: right" >
+    <button mat-button  (click)="saveData(EditDetails.value)">
+      <mat-icon>save_alt</mat-icon>save
+    </button>
+  </div>
 </div>
+
   `,
   styleUrls: ['../../../../../assets/scss/others.scss']
 })
 export class EditComponent implements  OnInit{
   EditDetails = this.formBuilder.group({
-  name: ['', Validators.required],
+  name: ['', Validators.required]
 });
 
   private updatedList: {  id: number; name: string } | undefined;
@@ -202,8 +204,11 @@ export class EditComponent implements  OnInit{
   saveData(value: any): any {
     this.updatedList = {
         id: this.data.row.id,
-        name: value.name
+        name: value.name,
       };
+    if (!this.EditDetails.valid){
+      return;
+    }
     this.taskService.updateTask(this.updatedList, this.data.row.id).subscribe(
       (result: any) => {
         console.log( result);
@@ -212,5 +217,8 @@ export class EditComponent implements  OnInit{
       (err: any) => {
         this.toast.error(`${err}`, 'Err');
       });
+  }
+  clear(): any {
+    this.EditDetails.reset();
   }
 }

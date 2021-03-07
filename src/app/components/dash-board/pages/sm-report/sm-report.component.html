@@ -5,146 +5,172 @@
 </mat-form-field>
 <div class="mat-elevation-z8" >
 <div class="containerSm">
+
   <table mat-table [dataSource]="dataSource" matSort >
 
     <!-- Position Column -->
     <ng-container matColumnDef="id"  sticky >
-      <th mat-header-cell *matHeaderCellDef> id. </th>
+      <th mat-header-cell  mat-sort-header *matHeaderCellDef> id. </th>
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="createdAt"  >
-      <th mat-header-cell *matHeaderCellDef> created_at </th>
+      <th mat-header-cell   mat-sort-header *matHeaderCellDef> created_at </th>
       <td mat-cell *matCellDef="let element"> {{element.createdAt}} </td>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="updatedAt"  >
-      <th mat-header-cell *matHeaderCellDef> updated_at </th>
+      <th mat-header-cell  mat-sort-header *matHeaderCellDef> updated_at </th>
       <td mat-cell *matCellDef="let element"> {{element.updatedAt}} </td>
     </ng-container>
 
     <ng-container matColumnDef="agentCode" >
-      <th mat-header-cell *matHeaderCellDef> agent_Code </th>
+      <th mat-header-cell  mat-sort-header *matHeaderCellDef> agent_Code </th>
       <td mat-cell *matCellDef="let element"> {{element.agentCode}} </td>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="agentName">
-      <th mat-header-cell *matHeaderCellDef> agent_name </th>
+      <th mat-header-cell  mat-sort-header *matHeaderCellDef> agent_name </th>
       <td mat-cell *matCellDef="let element"> {{element.agentName}} </td>
     </ng-container>
 
     <ng-container matColumnDef="appState">
-      <th mat-header-cell *matHeaderCellDef> app_state </th>
+      <th mat-header-cell  mat-sort-header *matHeaderCellDef> app_state </th>
       <td mat-cell *matCellDef="let element"> {{element.appState}} </td>
     </ng-container>
 
     <ng-container matColumnDef="appAction">
-      <th mat-header-cell *matHeaderCellDef> app_action </th>
+      <th mat-header-cell   mat-sort-header *matHeaderCellDef> app_action </th>
       <td mat-cell *matCellDef="let element"> {{element.appAction}} </td>
     </ng-container>
 
     <ng-container matColumnDef="branded">
-      <th mat-header-cell *matHeaderCellDef> branded </th>
+      <th mat-header-cell  mat-sort-header *matHeaderCellDef> branded </th>
       <td mat-cell *matCellDef="let element"> {{element.branded}} </td>
     </ng-container>
 
     <ng-container matColumnDef="brandedAction">
-      <th mat-header-cell *matHeaderCellDef> branded_action </th>
+      <th mat-header-cell  mat-sort-header *matHeaderCellDef> branded_action </th>
       <td mat-cell *matCellDef="let element"> {{element.brandedAction}} </td>
     </ng-container>
 
     <ng-container matColumnDef="cashOut">
-      <th mat-header-cell *matHeaderCellDef> cash_out </th>
+      <th mat-header-cell  mat-sort-header *matHeaderCellDef> cash_out </th>
       <td mat-cell *matCellDef="let element"> {{element.cashOut}} </td>
     </ng-container>
 
     <ng-container matColumnDef="collectStationery">
-      <th mat-header-cell *matHeaderCellDef> collect_stationary </th>
+      <th mat-header-cell  mat-sort-header *matHeaderCellDef> collect_stationary </th>
       <td mat-cell *matCellDef="let element"> {{element.collectStationery}} </td>
     </ng-container>
 
     <ng-container matColumnDef="collectStationeryNeed">
-      <th mat-header-cell *matHeaderCellDef> collect_stationary_need </th>
+      <th mat-header-cell  mat-sort-header *matHeaderCellDef> collect_stationary_need </th>
       <td mat-cell *matCellDef="let element"> {{element.collectStationeryNeed}} </td>
     </ng-container>
 
     <ng-container matColumnDef="latitude">
-      <th mat-header-cell *matHeaderCellDef> latitude </th>
+      <th mat-header-cell  mat-sort-header *matHeaderCellDef> latitude </th>
       <td mat-cell *matCellDef="let element"> {{element.latitude}} </td>
     </ng-container>
 
     <ng-container matColumnDef="longitude">
-      <th mat-header-cell *matHeaderCellDef> longitude </th>
+      <th mat-header-cell  mat-sort-header *matHeaderCellDef> longitude </th>
       <td mat-cell *matCellDef="let element"> {{element.longitude}} </td>
     </ng-container>
 
     <ng-container matColumnDef="phone">
-      <th mat-header-cell *matHeaderCellDef> phone </th>
+      <th mat-header-cell   mat-sort-header *matHeaderCellDef> phone </th>
       <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
     </ng-container>
 
     <ng-container matColumnDef="posAction">
-      <th mat-header-cell *matHeaderCellDef> pos_action </th>
+      <th mat-header-cell  mat-sort-header *matHeaderCellDef> pos_action </th>
       <td mat-cell *matCellDef="let element"> {{element.posAction}} </td>
     </ng-container>
 
     <ng-container matColumnDef="posState">
-      <th mat-header-cell *matHeaderCellDef> pos_state </th>
+      <th mat-header-cell  mat-sort-header *matHeaderCellDef> pos_state </th>
       <td mat-cell *matCellDef="let element"> {{element.posState}} </td>
     </ng-container>
 
     <ng-container matColumnDef="registerAction">
-      <th mat-header-cell *matHeaderCellDef> register_action </th>
+      <th mat-header-cell  mat-sort-header *matHeaderCellDef> register_action </th>
       <td mat-cell *matCellDef="let element"> {{element.registerAction}} </td>
     </ng-container>
 
     <ng-container matColumnDef="registerPic">
-      <th mat-header-cell *matHeaderCellDef> register_pic </th>
+      <th mat-header-cell  mat-sort-header *matHeaderCellDef> register_pic </th>
       <td mat-cell *matCellDef="let element"> {{element.registerPic}} </td>
     </ng-container>
 
     <ng-container matColumnDef="registerState">
-      <th mat-header-cell *matHeaderCellDef> register_state </th>
+      <th mat-header-cell   mat-sort-header *matHeaderCellDef> register_state </th>
       <td mat-cell *matCellDef="let element"> {{element.registerState}} </td>
     </ng-container>
 
     <ng-container matColumnDef="support">
-      <th mat-header-cell *matHeaderCellDef> support </th>
+      <th mat-header-cell  mat-sort-header *matHeaderCellDef> support </th>
       <td mat-cell *matCellDef="let element"> {{element.support}} </td>
     </ng-container>
 
     <ng-container matColumnDef="supportNeed">
-      <th mat-header-cell *matHeaderCellDef> support_need </th>
+      <th mat-header-cell   mat-sort-header *matHeaderCellDef> support_need </th>
       <td mat-cell *matCellDef="let element"> {{element.supportNeed}} </td>
     </ng-container>
 
     <ng-container matColumnDef="troubleShooting">
-      <th mat-header-cell *matHeaderCellDef> troubleshooting </th>
+      <th mat-header-cell  mat-sort-header *matHeaderCellDef> troubleshooting </th>
       <td mat-cell *matCellDef="let element"> {{element.troubleShooting}} </td>
     </ng-container>
 
     <ng-container matColumnDef="troubleShootingNeed">
-      <th mat-header-cell *matHeaderCellDef> troubleShooting_need </th>
+      <th mat-header-cell   mat-sort-header *matHeaderCellDef> troubleShooting_need </th>
       <td mat-cell *matCellDef="let element"> {{element.troubleShootingNeed}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="userId" stickyEnd >
-      <th mat-header-cell *matHeaderCellDef> user_id </th>
+    <ng-container matColumnDef="userId" >
+      <th mat-header-cell  mat-sort-header *matHeaderCellDef> user_id </th>
       <td mat-cell *matCellDef="let element"> {{element.user.id}} </td>
     </ng-container>
+    <ng-container matColumnDef="actions"  stickyEnd >
+      <th style="padding-left: 5vw" mat-header-cell *matHeaderCellDef >Actions</th>
+      <mat-cell *matCellDef="let row" >
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <td class="row " cdk-cell style="display: flex; justify-content: space-evenly;align-items: center"   >
+          <button mat-button  (click)="openEdit(row)"><mat-icon class="editItem">edit</mat-icon></button>
+          <button mat-button  (click)="Delete(row)"><mat-icon class="deleteItem">delete</mat-icon></button>
+        </td>
+      </mat-cell>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-    <!-- Row shown when there is no matching data. -->
-    <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-    </tr>
+    <div *ngIf="searchingOn">
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </div>
+
+    <div disabled="!isLoading"
+         style="display: flex; justify-content: center; align-items: center; background: white;height: 25vh">
+      <tr class="mat-row" *matNoDataRow >
+        <td class=" mat-cell" colspan="15" style="justify-content: center;align-items: center;">
+          <mat-progress-spinner
+            color="primary"
+            mode="indeterminate">
+          </mat-progress-spinner>
+        </td>
+      </tr>
+
+    </div>
   </table>
 </div>
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>
 </div>
+

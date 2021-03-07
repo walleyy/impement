@@ -55,15 +55,15 @@
               <mat-cell *matCellDef="let row" >
 
                 <td class="row " cdk-cell style="display: flex; justify-content: space-evenly;align-items: center"   >
-                  <button mat-button (click)="openDetails(row)" >View</button> |
-                  <button mat-button  (click)="openEdit(row)">Edit</button> |
-                  <button mat-button  (click)="Delete(row)">Delete</button>
+                  <button mat-button (click)="openDetails(row)" ><mat-icon class="preview">preview</mat-icon></button>
+                  <button mat-button  (click)="openEdit(row)"><mat-icon class="editItem">edit</mat-icon></button>
+                  <button mat-button  (click)="Delete(row)"><mat-icon class="deleteItem">delete</mat-icon></button>
                 </td>
               </mat-cell>
             </ng-container>
 
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>``
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
             <!-- Row shown when there is no matching data. -->

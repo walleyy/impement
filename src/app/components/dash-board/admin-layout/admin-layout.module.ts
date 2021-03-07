@@ -16,21 +16,27 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {DialogComponent} from '../shared/dialog/dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import {SmReportComponent} from '../pages/sm-report/sm-report.component';
-import {RReportComponent} from '../pages/r-report/r-report.component';
-import {TaReportComponent} from '../pages/ta-report/ta-report.component';
+import {EditSMComponent, SmReportComponent} from '../pages/sm-report/sm-report.component';
+import {EditRComponent, RReportComponent} from '../pages/r-report/r-report.component';
+import {EditTAComponent, TaReportComponent} from '../pages/ta-report/ta-report.component';
 import {CdkTableModule} from '@angular/cdk/table';
 import {MatIconModule} from '@angular/material/icon';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {AuthInterceptor} from '../../../helper/auth.interceptor';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatListModule} from '@angular/material/list';
-import {MatLineModule} from '@angular/material/core';
+import {MatLineModule, MatNativeDateModule} from '@angular/material/core';
 import {MatDividerModule} from '@angular/material/divider';
-import {AccountActivationComponent} from '../pages/account-activation/account-activation.component';
-import {AccountOpeningComponent} from '../pages/account-opening/account-opening.component';
+import {AccountActivationComponent, EditAAComponent} from '../pages/account-activation/account-activation.component';
+import {AccountOpeningComponent, EditAOComponent} from '../pages/account-opening/account-opening.component';
 import {ManageUsersComponent} from '../pages/manage-users/manage-users.component';
 import {MatSortModule} from '@angular/material/sort';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSelectModule} from '@angular/material/select';
+
 
 
 @NgModule({
@@ -53,7 +59,13 @@ import {MatSortModule} from '@angular/material/sort';
     MatLineModule,
     NgbDropdownModule,
     MatDividerModule,
-    MatSortModule
+    MatSortModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatRadioModule,
+    MatSelectModule
   ],
   declarations: [
     DashBoardComponent,
@@ -68,7 +80,12 @@ import {MatSortModule} from '@angular/material/sort';
     RReportComponent,
     AccountActivationComponent,
     AccountOpeningComponent,
-    ManageUsersComponent
+    ManageUsersComponent,
+    EditAAComponent,
+    EditAOComponent,
+    EditRComponent,
+    EditSMComponent,
+    EditTAComponent
   ],
   exports: [
     MatInputModule,
@@ -85,7 +102,12 @@ import {MatSortModule} from '@angular/material/sort';
     MatLineModule,
     NgbDropdownModule,
     MatDividerModule,
-    MatSortModule
+    MatSortModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatRadioModule
   ],
   entryComponents: [
     SmReportComponent,
@@ -93,7 +115,12 @@ import {MatSortModule} from '@angular/material/sort';
     RReportComponent,
     TaReportComponent,
     DetailsComponent,
-    EditComponent
+    EditComponent,
+    EditAAComponent,
+    EditAOComponent,
+    EditRComponent,
+    EditSMComponent,
+    EditTAComponent
   ],
   providers: [AuthInterceptor]
 })
