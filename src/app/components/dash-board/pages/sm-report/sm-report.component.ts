@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Inject, OnInit, Optional, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Inject, Input, OnChanges, OnInit, Optional, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {SysMonitoringService} from '../../../../../services/dataForTable/sys-monitoring.service';
@@ -7,7 +7,7 @@ import {ToastrService} from 'ngx-toastr';
 import {DialogComponent} from '../../shared/dialog/dialog.component';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {FormBuilder, Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
+import { Observable} from 'rxjs';
 import {HttpEventType, HttpResponse} from '@angular/common/http';
 
 
@@ -17,26 +17,25 @@ export interface SupportMonitoring {
   updatedAt: Date;
   agentCode: string;
   agentName: string;
-  appState: number;
+  appState: boolean;
   appAction: string;
-  branded: number;
+  branded: boolean;
   brandedAction: string;
-  cashOut: number;
-  collectStationery: number;
+  cashOut: boolean;
+  collectStationery: boolean;
   collectStationeryNeed: string;
   latitude: string;
   longitude: string;
   phone: string;
   posAction: string;
-  posState: number;
+  posState: boolean;
   registerAction: string;
   registerPic: string;
-  registerState: number;
-  support: number;
+  registerState: boolean;
+  support: boolean;
   supportNeed: string;
-  troubleShooting: string;
-  troubleShootingNeed: number;
-  user: bigint;
+  troubleShooting: boolean;
+  troubleShootingNeed: string;
 }
 
 
@@ -134,8 +133,8 @@ export class SmReportComponent implements OnInit, AfterViewInit {
 
   <mat-label >is Eazzy App in a good condition?</mat-label>
   <mat-radio-group aria-label="Select an option" formControlName="state">
-    <mat-radio-button (click)="eazzyView = 1" value="1" [(ngModel)]="eazzyView"  [ngModelOptions]="{standalone: true}"  ngDefaultControl  name="choice" >Yes</mat-radio-button>
-    <mat-radio-button  (click)="eazzyView = 0" value="0">No</mat-radio-button>
+    <mat-radio-button (click)="eazzyView = 1" value="true" [(ngModel)]="eazzyView"  [ngModelOptions]="{standalone: true}"  ngDefaultControl  name="choice" >Yes</mat-radio-button>
+    <mat-radio-button  (click)="eazzyView = 0" value="false">No</mat-radio-button>
   </mat-radio-group>
 
   <mat-form-field appearance="outline" *ngIf="!eazzyView">
@@ -145,8 +144,8 @@ export class SmReportComponent implements OnInit, AfterViewInit {
 
   <mat-label >Agent is branded?</mat-label>
   <mat-radio-group aria-label="Select an option" formControlName="brand">
-    <mat-radio-button value="1"  (click)="brandView  = 1" [(ngModel)]="brandView"  [ngModelOptions]="{standalone: true}"  ngDefaultControl  name="brander">Yes</mat-radio-button>
-    <mat-radio-button value="0"  (click)="brandView  = 0" >No</mat-radio-button>
+    <mat-radio-button value="true"  (click)="brandView  = 1" [(ngModel)]="brandView"  [ngModelOptions]="{standalone: true}"  ngDefaultControl  name="brander">Yes</mat-radio-button>
+    <mat-radio-button value="false"  (click)="brandView  = 0" >No</mat-radio-button>
   </mat-radio-group>
 
   <mat-form-field appearance="outline"  *ngIf="!brandView" >
@@ -156,14 +155,14 @@ export class SmReportComponent implements OnInit, AfterViewInit {
 
   <mat-label >Cash out transaction process understanding?</mat-label>
   <mat-radio-group aria-label="Select an option" formControlName="cOut">
-    <mat-radio-button value="1">Yes</mat-radio-button>
-    <mat-radio-button value="0">No</mat-radio-button>
+    <mat-radio-button value="true">Yes</mat-radio-button>
+    <mat-radio-button value="false">No</mat-radio-button>
   </mat-radio-group>
 
   <mat-label >Collect of stationery</mat-label>
   <mat-radio-group aria-label="Select an option" formControlName="stationary">
-    <mat-radio-button value="1" (click)="stationaryView  = 1" [(ngModel)]="stationaryView" [ngModelOptions]="{standalone: true}"  ngDefaultControl  name="stationary0">Yes</mat-radio-button>
-    <mat-radio-button value="0"  (click)="stationaryView  = 0">No</mat-radio-button>
+    <mat-radio-button value="true" (click)="stationaryView  = 1" [(ngModel)]="stationaryView" [ngModelOptions]="{standalone: true}"  ngDefaultControl  name="stationary0">Yes</mat-radio-button>
+    <mat-radio-button value="false"  (click)="stationaryView  = 0">No</mat-radio-button>
   </mat-radio-group>
 
   <mat-form-field appearance="outline"  *ngIf="!stationaryView">
@@ -173,8 +172,8 @@ export class SmReportComponent implements OnInit, AfterViewInit {
 
   <mat-label >Pos in good condition</mat-label>
   <mat-radio-group aria-label="Select an option" formControlName="pState">
-    <mat-radio-button value="1" (click)="posView  = 1" [(ngModel)]="posView" [ngModelOptions]="{standalone: true}"  ngDefaultControl  name="stationary1">Yes</mat-radio-button>
-    <mat-radio-button value="0"  (click)="posView  = 0">No</mat-radio-button>
+    <mat-radio-button value="true" (click)="posView  = 1" [(ngModel)]="posView" [ngModelOptions]="{standalone: true}"  ngDefaultControl  name="stationary1">Yes</mat-radio-button>
+    <mat-radio-button value="false"  (click)="posView  = 0">No</mat-radio-button>
   </mat-radio-group>
 
   <mat-form-field appearance="outline"  *ngIf="!posView">
@@ -182,10 +181,10 @@ export class SmReportComponent implements OnInit, AfterViewInit {
     <input matInput type="text" placeholder="posAction" formControlName="pAction">
   </mat-form-field>
 
-  <mat-label >Pos in good condition</mat-label>
+  <mat-label > is transaction filled and registered?</mat-label>
   <mat-radio-group aria-label="Select an option" formControlName="rState">
-    <mat-radio-button value="1" (click)="regView  = 1" [(ngModel)]="regView" [ngModelOptions]="{standalone: true}"  ngDefaultControl  name="regView">Yes</mat-radio-button>
-    <mat-radio-button value="0"  (click)="regView  = 0">No</mat-radio-button>
+    <mat-radio-button value="true" (click)="regView  = 1" [(ngModel)]="regView" [ngModelOptions]="{standalone: true}"  ngDefaultControl  name="regView">Yes</mat-radio-button>
+    <mat-radio-button value="false"  (click)="regView  = 0">No</mat-radio-button>
   </mat-radio-group>
 
   <mat-form-field appearance="outline"  *ngIf="!regView">
@@ -222,6 +221,14 @@ export class SmReportComponent implements OnInit, AfterViewInit {
 
     <div *ngIf="message" class="alert alert-secondary" role="alert">{{ message }}</div>
   </div>
+  <div *ngIf="!noImage">
+    <img [src]="imageBlobUrl"
+         alt="{{this.data.row.registerPic}}"
+         *ngIf="!isImageLoading; else noImageFound">
+    <ng-template #noImageFound>
+      <img src="../../../../../assets/images/FallbackImage.png" alt="FallbackImage">
+    </ng-template>
+  </div>
   <mat-form-field appearance="outline">
     <mat-label>register action</mat-label>
     <input matInput type="text" placeholder="registerAction" formControlName="rAction">
@@ -229,8 +236,8 @@ export class SmReportComponent implements OnInit, AfterViewInit {
 
   <mat-label>sales and marketing support</mat-label>
   <mat-radio-group aria-label="Select an option" formControlName="sup">
-    <mat-radio-button value="1" (click)="marketView  = 1" [(ngModel)]="marketView" [ngModelOptions]="{standalone: true}"  ngDefaultControl  name="market">Yes</mat-radio-button>
-    <mat-radio-button value="0"  (click)="marketView  = 0">No</mat-radio-button>
+    <mat-radio-button value="true" (click)="marketView  = 1" [(ngModel)]="marketView" [ngModelOptions]="{standalone: true}"  ngDefaultControl  name="market">Yes</mat-radio-button>
+    <mat-radio-button value="false"  (click)="marketView  = 0">No</mat-radio-button>
   </mat-radio-group>
 
   <mat-form-field appearance="outline"  *ngIf="!marketView" >
@@ -239,20 +246,20 @@ export class SmReportComponent implements OnInit, AfterViewInit {
   </mat-form-field>
 
   <mat-label> is troubleshooting needed?</mat-label>
-  <mat-radio-group aria-label="Select an option" formControlName="tShootNeed">
-    <mat-radio-button value="1"  (click)="tShootView = 1" [(ngModel)]="tShootView" [ngModelOptions]="{standalone: true}"  ngDefaultControl  name="market">Yes</mat-radio-button>
-    <mat-radio-button value="0"  (click)="tShootView = 0">No</mat-radio-button>
+  <mat-radio-group aria-label="Select an option" formControlName="tShooting">
+    <mat-radio-button value="true"  (click)="tShootView = 1" [(ngModel)]="tShootView" [ngModelOptions]="{standalone: true}"  ngDefaultControl  name="market">Yes</mat-radio-button>
+    <mat-radio-button value="false"  (click)="tShootView = 0">No</mat-radio-button>
   </mat-radio-group>
 
   <mat-form-field appearance="outline"  *ngIf="!tShootView">
     <mat-label>troubleshooting</mat-label>
-    <input matInput type="text" placeholder="troubleshooting" formControlName="tShooting">
+    <input matInput type="text" placeholder="troubleshooting" formControlName="tShootNeed">
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>user</mat-label>
-    <input matInput type="text" placeholder="user" formControlName="usr">
-  </mat-form-field>
+<!--  <mat-form-field appearance="outline">-->
+<!--    <mat-label>user</mat-label>-->
+<!--    <input matInput type="text" placeholder="user" formControlName="usr">-->
+<!--  </mat-form-field>-->
 
   <mat-form-field appearance="outline">
     <mat-label>latitude</mat-label>
@@ -266,7 +273,7 @@ export class SmReportComponent implements OnInit, AfterViewInit {
 
   <mat-form-field appearance="outline">
     <mat-label>agent phone number</mat-label>
-    <input matInput  type="number" maxlength="3" placeholder="phone" formControlName="phon">
+    <input matInput  type="tel" maxlength="13" placeholder="phone" formControlName="phon">
   </mat-form-field>
 </form>
 
@@ -278,8 +285,8 @@ export class SmReportComponent implements OnInit, AfterViewInit {
   <div style="float: right" >
     <button mat-button  (click)="saveData( EditDetails.value.agCode , EditDetails.value.agName , EditDetails.value.state , EditDetails.value.action , EditDetails.value.brand ,
    EditDetails.value.brandAction, EditDetails.value.cOut,EditDetails.value.stationary, EditDetails.value.stationaryNeed, EditDetails.value.pAction, EditDetails.value.pState ,
-    EditDetails.value.rAction,EditDetails.value.rPic , EditDetails.value.rState , EditDetails.value.sup , EditDetails.value.suNeed, EditDetails.value.tShooting,
-     EditDetails.value.tShootNeed, EditDetails.value.usr, EditDetails.value.lat, EditDetails.value.longi, EditDetails.value.phon)">
+    EditDetails.value.rAction,EditDetails.value.rPic , EditDetails.value.rState , EditDetails.value.sup , EditDetails.value.lat, EditDetails.value.longi,
+     EditDetails.value.suNeed, EditDetails.value.tShooting, EditDetails.value.tShootNeed, EditDetails.value.phon)">
       <mat-icon>save_alt</mat-icon>save
     </button>
     <button mat-button (click)="clear()">clear</button>
@@ -290,93 +297,107 @@ export class SmReportComponent implements OnInit, AfterViewInit {
   styleUrls: ['../../../../../assets/scss/others.scss']
 })
 export class EditSMComponent implements  OnInit{
+  EditDetails = this.formBuilder.group({
+  agCode: [ this.data.row.agentCode, Validators.required],
+  agName: [this.data.row.agentName, Validators.required],
+  state: [this.data.row.appState, Validators.required],
+  action: [this.data.row.appAction],
+  brand: [this.data.row.branded, Validators.required],
+  brandAction: [this.data.row.brandedAction],
+  cOut: [this.data.row.cashOut, Validators.required],
+  stationary: [this.data.row.collectStationery, Validators.required],
+  stationaryNeed: [this.data.row.collectStationeryNeed],
+  pAction: [this.data.row.appAction],
+  pState: [this.data.row.appState, Validators.required],
+  rAction: [this.data.row.registerAction],
+  rPic: [this.data.row.registerPic],
+  rState: [this.data.row.registerState, Validators.required],
+  sup: [this.data.row.support, Validators.required],
+  suNeed: [this.data.row.supportNeed],
+  tShooting: [this.data.row.troubleShooting, Validators.required],
+  tShootNeed: [this.data.row.troubleShootingNeed],
+  usr: [this.data.row.user.id, Validators.required],
+  lat: [this.data.row.latitude, Validators.required],
+  longi: [this.data.row.longitude, Validators.required],
+  phon: [this.data.row.phone, [Validators.required, Validators.maxLength(10)]],
+});
 // file service
   selectedFiles?: FileList;
   currentFile?: File;
   progress = 0;
   message = '';
   fileInfos?: Observable<any>;
-
+// variables
+  eazzyView: any;
+  brandView: any;
+  editObject = false;
+  stationaryView: any;
+  posView: any;
+  marketView: any;
+  tShootView: any;
+  regView: any;
+  isImageLoading: boolean | undefined;
+  noImage: any;
   private updatedList: {
     id: bigint;
     createdAt: Date;
     updatedAt: Date;
     agentCode: string;
     agentName: string;
-    appState: number;
+    appState: boolean;
     appAction: string;
-    branded: number;
+    branded: boolean;
     brandedAction: string;
-    cashOut: number;
-    collectStationery: number;
+    cashOut: boolean;
+    collectStationery: boolean;
     collectStationeryNeed: string;
     latitude: string;
     longitude: string;
     phone: string;
     posAction: string;
-    posState: number;
+    posState: boolean;
     registerAction: string;
     registerPic: string;
-    registerState: number;
-    support: number;
+    registerState: boolean;
+    support: boolean;
     supportNeed: string;
-    troubleShooting: string;
-    troubleShootingNeed: number;
-    user: bigint } | undefined;
-
-    // variables
-    eazzyView: any;
-    brandView: any;
-    editObject = false;
-    stationaryView: any;
-    posView: any;
-    marketView: any;
-    tShootView: any;
-    regView: any;
+    troubleShooting: boolean;
+    troubleShootingNeed: string;
+    } | undefined;
+  filName: {
+    filename: any
+  }| undefined;
+  imageBlobUrl: string | ArrayBuffer | null = null;
 
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any, public  formBuilder: FormBuilder,
     private smService: SysMonitoringService, public toast: ToastrService
   ) {}
 
-  EditDetails = this.formBuilder.group({
-    agCode: [ this.data.row.agentCode, Validators.required],
-    agName: [this.data.row.agentName, Validators.required],
-    state: [this.data.row.appState, Validators.required],
-    action: [this.data.row.appAction],
-    brand: [this.data.row.branded, Validators.required],
-    brandAction: [this.data.row.brandedAction],
-    cOut: [this.data.row.cashOut, Validators.required],
-    stationary: [this.data.row.collectStationery, Validators.required],
-    stationaryNeed: [this.data.row.collectStationeryNeed, Validators.required],
-    pAction: [this.data.row.appAction, Validators.required],
-    pState: [this.data.row.appState, Validators.required],
-    rAction: [this.data.row.registerAction, Validators.required],
-    rPic: [this.data.row.registerPic, Validators.required],
-    rState: [this.data.row.registerState, Validators.required],
-    sup: [this.data.row.support, Validators.required],
-    suNeed: [this.data.row.supportNeed, Validators.required],
-    tShooting: [this.data.row.troubleShooting],
-    tShootNeed: [this.data.row.troubleShootingNeed, Validators.required],
-    usr: [this.data.row.user.id, Validators.required],
-    lat: [this.data.row.latitude, Validators.required],
-    longi: [this.data.row.longitude, Validators.required],
-    phon: [this.data.row.phone, [Validators.required, Validators.maxLength(10)]],
-  });
-  noImage: any;
-
-
-
   ngOnInit(): void{
     this.EditDetails.disable();
     this.noImage = false;
-    this.fileInfos = this.smService.getFiles(this.data.row.registerPic);
+    this.isImageLoading = true;
+    this.filName = {
+      filename: 'support_forms/3afad6d5-8dd4-4862-a38b-7cedaa49a9ae.jpg'
+    };
+
+    this.smService.getBlobThumbnail(this.filName)
+        .subscribe((val: Blob) => {
+            this.createImageFromBlob(val);
+            this.isImageLoading = false;
+          },
+            (err: any) => {
+            console.log(err);
+            this.isImageLoading = true;
+          },
+          );
   }
 
-  saveData(agCode: any, agName: string, state: number, action: string, brand: number, brandAction: string, cOut: number,
-           stationary: number, stationaryNeed: string, pAction: string, pState: number, rAction: string, rPic: string,
-           rState: number, sup: number, lat: string, longi: string, suNeed: string, tShooting: string, tShootNeed: number,
-           usr: bigint, phon: string): any {
+  saveData(agCode: string, agName: string, state: boolean, action: string, brand: boolean, brandAction: string, cOut: boolean,
+           stationary: boolean, stationaryNeed: string, pAction: string, pState: boolean, rAction: string, rPic: string,
+           rState: boolean, sup: boolean, lat: string, longi: string, suNeed: string, tShooting: boolean, tShootNeed: string,
+           phon: string): any {
     this.updatedList = {
       id: this.data.row.id,
       createdAt: this.data.row.createdAt,
@@ -402,7 +423,6 @@ export class EditSMComponent implements  OnInit{
       supportNeed: suNeed,
       troubleShooting: tShooting,
       troubleShootingNeed: tShootNeed,
-      user: usr,
     };
     if (!this.EditDetails.valid){
       return;
@@ -471,5 +491,17 @@ export class EditSMComponent implements  OnInit{
       this.selectedFiles = undefined;
     }
   }
+
+  createImageFromBlob(image: Blob): any {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.imageBlobUrl = reader.result;
+    }, false);
+
+    if (image) {
+      reader.readAsDataURL(image);
+    }
+  }
+
 }
 

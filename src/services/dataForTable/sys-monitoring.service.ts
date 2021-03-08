@@ -1,15 +1,25 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpEvent, HttpRequest} from '@angular/common/http';
+import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {SupportMonitoring} from '../../app/components/dash-board/pages/sm-report/sm-report.component';
 import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {DomSanitizer} from '@angular/platform-browser';
 
 const URI = 'http://localhost:8080/api/support';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    Accept: 'application/json'
+  })
+};
+
 @Injectable({
   providedIn: 'root'
 })
 export class SysMonitoringService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private domSanitizer: DomSanitizer) { }
 
   getMonitoring( ): any {
    return this.http.get<SupportMonitoring>(URI + '/');
@@ -24,7 +34,8 @@ export class SysMonitoringService {
     return this.http.post(URI, support);
   }
 
-  updateSupport(support: SupportMonitoring , id: number): any {
+  // tslint:disable-next-line:max-line-length
+  updateSupport(support: SupportMonitoring, id: number): any {
     return this.http.put(URI + '/' + `${id}` , support);
 
   }
@@ -44,7 +55,17 @@ export class SysMonitoringService {
 
     return this.http.request(req);
   }
-  getFiles(path: any): Observable<any> {
-    return this.http.post(`${URI}/getImage`, path);
+  // getImage(path: any): Observable<object> {
+  //   return this.http.post(`${URI}/getImage`, path, httpOptions);
+  // }
+
+  getBlobThumbnail(obj: any): Observable<Blob> {
+    const header = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
+    });
+    return this.http.post<Blob>(`${URI}/getImage`,
+      obj, {  responseType: 'blob' as 'json'   });
   }
 }
+
