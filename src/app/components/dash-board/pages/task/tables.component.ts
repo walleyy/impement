@@ -96,7 +96,6 @@ export class TablesComponent implements OnInit , AfterViewInit{
 
   toggle(): any {
 this.toggleButton = !this.toggleButton;
-
   }
 
   createTask(value: any): any {

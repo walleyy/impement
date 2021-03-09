@@ -30,7 +30,7 @@ export class SysMonitoringService {
     return this.http.get<SupportMonitoring>(URI + '/' + `${id}` );
   }
 
-  createSupport(support: SupportMonitoring): object{
+  createSupport(support: SupportMonitoring): any{
     return this.http.post(URI, support);
   }
 
@@ -50,20 +50,13 @@ export class SysMonitoringService {
 
     const req = new HttpRequest('POST', `${URI}/uploadImage`, formData, {
       reportProgress: true,
-      responseType: 'json'
+      responseType: 'text' as 'json',
     });
 
     return this.http.request(req);
   }
-  // getImage(path: any): Observable<object> {
-  //   return this.http.post(`${URI}/getImage`, path, httpOptions);
-  // }
 
   getBlobThumbnail(obj: any): Observable<Blob> {
-    const header = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Accept: 'application/json'
-    });
     return this.http.post<Blob>(`${URI}/getImage`,
       obj, {  responseType: 'blob' as 'json'   });
   }

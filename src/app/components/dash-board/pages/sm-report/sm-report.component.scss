@@ -10,12 +10,11 @@ table{
 
 
 .mat-table-sticky-border-elem-right {
-  border-left: 1px solid #e0e0e0;
   padding: 20px;
 }
 
 .mat-table-sticky-border-elem-left {
-  border-right: 1px solid #e0e0e0;padding: 20px;
+  padding: 20px;
 }
 th.mat-column-position, td.mat-column-position {
   padding: 18px;
@@ -36,4 +35,8 @@ th, td {
 .mat-progress-spinner{
   left: 50vh;
   margin: 15px;
+}
+.column{
+  display: flex;
+  flex-direction: column;
 }

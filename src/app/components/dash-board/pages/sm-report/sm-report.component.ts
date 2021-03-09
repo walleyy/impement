@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Inject, Input, OnChanges, OnInit, Optional, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Inject, OnInit, Optional, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {SysMonitoringService} from '../../../../../services/dataForTable/sys-monitoring.service';
@@ -9,6 +9,7 @@ import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {FormBuilder, Validators} from '@angular/forms';
 import { Observable} from 'rxjs';
 import {HttpEventType, HttpResponse} from '@angular/common/http';
+import {filter, skip} from 'rxjs/operators';
 
 
 export interface SupportMonitoring {
@@ -57,6 +58,7 @@ export class SmReportComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator | undefined;
   isLoading = true;
   searchingOn = false;
+  toggleButton = false;
 
 
   constructor( private supportService: SysMonitoringService, private toast: ToastrService,
@@ -113,6 +115,9 @@ export class SmReportComponent implements OnInit, AfterViewInit {
         this.toast.error('failed deleting Monitoring with id ' + ' ' + `${element.id}` , 'error');
       }
     );
+  }
+  toggle(): any {
+    this.toggleButton = !this.toggleButton;
   }
 }
 
@@ -189,7 +194,7 @@ export class SmReportComponent implements OnInit, AfterViewInit {
 
   <mat-form-field appearance="outline"  *ngIf="!regView">
     <mat-label>picture existing</mat-label>
-    <input matInput type="text" placeholder="registerPic" formControlName="rPic">
+    <input matInput type="text" placeholder="registerPic"   formControlName="rPic" >
   </mat-form-field>
   <div  *ngIf="!regView">
     <div class="row">
@@ -205,7 +210,7 @@ export class SmReportComponent implements OnInit, AfterViewInit {
         </button>
       </div>
     </div>
-
+    <img [src]="imageSrc" *ngIf="imageSrc" style="height: 300px; width:500px">
     <div *ngIf="currentFile" class="progress my-3">
       <div
         class="progress-bar progress-bar-info progress-bar-striped"
@@ -256,11 +261,6 @@ export class SmReportComponent implements OnInit, AfterViewInit {
     <input matInput type="text" placeholder="troubleshooting" formControlName="tShootNeed">
   </mat-form-field>
 
-<!--  <mat-form-field appearance="outline">-->
-<!--    <mat-label>user</mat-label>-->
-<!--    <input matInput type="text" placeholder="user" formControlName="usr">-->
-<!--  </mat-form-field>-->
-
   <mat-form-field appearance="outline">
     <mat-label>latitude</mat-label>
     <input matInput type="text" placeholder="latitude" formControlName="lat">
@@ -278,8 +278,12 @@ export class SmReportComponent implements OnInit, AfterViewInit {
 </form>
 
 <div class="row">
-  <div style="float: left" >
-    <button mat-button  (click)="alterObject()">Toggle edit</button>
+  <div style="float: left"  >
+    <button mat-button  (click)="alterObject()"><mat-icon>mode_edit</mat-icon>edit</button>
+    <button mat-button *ngIf="cleared" (click)="createNew(EditDetails.value.agCode , EditDetails.value.agName , EditDetails.value.state , EditDetails.value.action , EditDetails.value.brand ,
+   EditDetails.value.brandAction, EditDetails.value.cOut,EditDetails.value.stationary, EditDetails.value.stationaryNeed, EditDetails.value.pAction, EditDetails.value.pState ,
+    EditDetails.value.rAction,EditDetails.value.rPic , EditDetails.value.rState , EditDetails.value.sup , EditDetails.value.lat, EditDetails.value.longi,
+     EditDetails.value.suNeed, EditDetails.value.tShooting, EditDetails.value.tShootNeed, EditDetails.value.phon)"><mat-icon>fiber_new</mat-icon>New</button>
   </div>
   <span style="flex: 1 1 auto"></span>
   <div style="float: right" >
@@ -287,9 +291,9 @@ export class SmReportComponent implements OnInit, AfterViewInit {
    EditDetails.value.brandAction, EditDetails.value.cOut,EditDetails.value.stationary, EditDetails.value.stationaryNeed, EditDetails.value.pAction, EditDetails.value.pState ,
     EditDetails.value.rAction,EditDetails.value.rPic , EditDetails.value.rState , EditDetails.value.sup , EditDetails.value.lat, EditDetails.value.longi,
      EditDetails.value.suNeed, EditDetails.value.tShooting, EditDetails.value.tShootNeed, EditDetails.value.phon)">
-      <mat-icon>save_alt</mat-icon>save
+      <mat-icon>save</mat-icon>save
     </button>
-    <button mat-button (click)="clear()">clear</button>
+    <button mat-button (click)="clear()"><mat-icon>clear_all</mat-icon>clear</button>
   </div>
 </div>
 
@@ -297,6 +301,11 @@ export class SmReportComponent implements OnInit, AfterViewInit {
   styleUrls: ['../../../../../assets/scss/others.scss']
 })
 export class EditSMComponent implements  OnInit{
+
+  constructor(
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any, public  formBuilder: FormBuilder,
+    private smService: SysMonitoringService, public toast: ToastrService
+  ) {}
   EditDetails = this.formBuilder.group({
   agCode: [ this.data.row.agentCode, Validators.required],
   agName: [this.data.row.agentName, Validators.required],
@@ -368,18 +377,56 @@ export class EditSMComponent implements  OnInit{
     filename: any
   }| undefined;
   imageBlobUrl: string | ArrayBuffer | null = null;
+  cleared = false;
+  imageSrc: string | undefined;
+  imageLocation: string| undefined;
 
-  constructor(
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: any, public  formBuilder: FormBuilder,
-    private smService: SysMonitoringService, public toast: ToastrService
-  ) {}
+  upload(): void {
+    this.progress = 0;
+    if (this.selectedFiles) {
+      const file: File | null = this.selectedFiles.item(0);
+
+      if (file) {
+        this.currentFile = file;
+        this.smService.upload(this.currentFile).subscribe(
+          (event: any) => {
+            if (event.type === HttpEventType.UploadProgress) {
+              this.progress = Math.round(100 * event.loaded / event.total);
+            } else if (event instanceof HttpResponse) {
+              this.message = event.body.message;
+            }
+            if (event.body !== undefined){
+              console.log(event.body);
+              this.imageLocation = event.body;
+              this.EditDetails.patchValue({rPic: event.body}, {emitEvent: false, onlySelf: true, });
+              // this.EditDetails.valueChanges.pipe(skip(1)).subscribe().unsubscribe();
+            }
+          },
+          (err: any) => {
+            console.log(err);
+            this.progress = 0;
+
+            if (err.error && err.error.message) {
+              this.message = err.error.message;
+            } else {
+              this.message = 'Could not upload the file!';
+            }
+
+            this.currentFile = undefined;
+          });
+      }
+
+      this.selectedFiles = undefined;
+    }
+  }
+
 
   ngOnInit(): void{
     this.EditDetails.disable();
     this.noImage = false;
     this.isImageLoading = true;
     this.filName = {
-      filename: 'support_forms/3afad6d5-8dd4-4862-a38b-7cedaa49a9ae.jpg'
+      filename: this.data.row.registerPic
     };
 
     this.smService.getBlobThumbnail(this.filName)
@@ -440,6 +487,7 @@ export class EditSMComponent implements  OnInit{
 
   clear(): any {
     this.EditDetails.reset();
+    this.cleared = true;
   }
 
   alterObject(): any {
@@ -455,41 +503,15 @@ export class EditSMComponent implements  OnInit{
 
   selectFile(event: any): void {
     this.selectedFiles = event.target.files;
-  }
-
-  upload(): void {
-    this.progress = 0;
-
     if (this.selectedFiles) {
       const file: File | null = this.selectedFiles.item(0);
-
-      if (file) {
-        this.currentFile = file;
-
-        this.smService.upload(this.currentFile).subscribe(
-          (event: any) => {
-            if (event.type === HttpEventType.UploadProgress) {
-              this.progress = Math.round(100 * event.loaded / event.total);
-            } else if (event instanceof HttpResponse) {
-              this.message = event.body.message;
-            }
-          },
-          (err: any) => {
-            console.log(err);
-            this.progress = 0;
-
-            if (err.error && err.error.message) {
-              this.message = err.error.message;
-            } else {
-              this.message = 'Could not upload the file!';
-            }
-
-            this.currentFile = undefined;
-          });
-      }
-
-      this.selectedFiles = undefined;
-    }
+      if (file){
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imageSrc = reader.result as string;
+      };
+    }}
   }
 
   createImageFromBlob(image: Blob): any {
@@ -503,5 +525,47 @@ export class EditSMComponent implements  OnInit{
     }
   }
 
+  createNew(agCode: string, agName: string, state: boolean, action: string, brand: boolean, brandAction: string, cOut: boolean,
+            stationary: boolean, stationaryNeed: string, pAction: string, pState: boolean, rAction: string, rPic: string,
+            rState: boolean, sup: boolean, lat: string, longi: string, suNeed: string, tShooting: boolean, tShootNeed: string,
+            phon: string): any {
+    this.updatedList = {
+      id: this.data.row.id,
+      createdAt: this.data.row.createdAt,
+      updatedAt: this.data.row.updatedAt,
+      agentCode: agCode,
+      agentName: agName,
+      appState: state,
+      appAction: action,
+      branded: brand,
+      brandedAction: brandAction,
+      cashOut: cOut,
+      collectStationery: stationary,
+      collectStationeryNeed: stationaryNeed,
+      latitude: lat,
+      longitude: longi,
+      phone: phon,
+      posAction: pAction,
+      posState: pState,
+      registerAction: rAction,
+      registerPic: rPic,
+      registerState: rState,
+      support: sup,
+      supportNeed: suNeed,
+      troubleShooting: tShooting,
+      troubleShootingNeed: tShootNeed,
+    };
+    if (!this.EditDetails.valid){
+      return;
+    }
+    this.smService.createSupport(this.updatedList).subscribe(
+      (results: any) => {
+        this.toast.success('created new  Data', 'Done!');
+      },
+      (err: any) => {
+        this.toast.error('failed, check data or network', 'Err');
+      }
+    );
+  }
 }
 
