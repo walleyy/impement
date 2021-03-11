@@ -20,9 +20,11 @@ export interface TrainingActivation {
   longitude: string;
   phone: string;
   courseId: string;
-  userId: string;
+  barcode: string;
 }
-
+interface Courses {
+  value: string;
+}
 
 @Component({
   selector: 'app-ta-report',
@@ -39,7 +41,18 @@ export class TaReportComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined ;
   @ViewChild(MatSort) sort: MatSort | undefined ;
-
+  public toggleButton = false;
+  searchingOn = false;
+  private defaultsTraining: {
+    courseId: string;
+    agentName: string;
+    deviceAction: string;
+    deviceAvailable: number;
+    latitude: string;
+    location: string;
+    longitude: string;
+    phone: string;
+    barcode: string; } | undefined;
   constructor(private trainActivation: TrainActivationService, private toast: ToastrService,
               public dialog: MatDialog) {}
 
@@ -94,6 +107,36 @@ export class TaReportComponent implements OnInit, AfterViewInit {
       }
     );
   }
+
+  toggle(): any {
+    this.toggleButton = !this.toggleButton;
+  }
+
+  create(): any {
+     this.defaultsTraining = {
+       agentName: 'Agent name',
+       deviceAction: '',
+       deviceAvailable: 3,
+       latitude: '',
+       location: 'Enter location',
+       longitude: '',
+       phone: '',
+       barcode: '',
+       courseId: '0'
+     };
+     const dialogRef = this.dialog.open(DialogComponent, {
+      width: '90%',
+      data: { row: this.defaultsTraining, component: EditTAComponent},
+      autoFocus : true,
+      disableClose: true,
+    });
+     dialogRef.afterClosed().subscribe(
+      results => {
+        this.dataSource = new MatTableDataSource(this.trainingActivation);
+        this.ngOnInit();
+      }
+    );
+  }
 }
 
 
@@ -103,32 +146,46 @@ export class TaReportComponent implements OnInit, AfterViewInit {
   template: `
 <form ngForm  style="display: flex; flex-direction: column; justify-content: center;align-items: center " [formGroup]="EditDetails">
   <mat-form-field appearance="outline">
-    <mat-label>account number</mat-label>
-    <input matInput type="text" placeholder="account number" formControlName="agName">
+    <mat-label>Agent name</mat-label>
+    <input matInput type="text" placeholder="account number" formControlName="agName"  required>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label>device action</mat-label>
-    <input matInput type="text" placeholder="device action" formControlName="devAction">
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>device available</mat-label>
-    <input matInput type="text" placeholder="device available" formControlName="devAvailable">
+    <mat-label>phone</mat-label>
+    <input matInput  type="number" placeholder="phone" formControlName="phon"  required>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-label>location</mat-label>
-    <input matInput type="text" placeholder="location" formControlName="loc">
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>course id</mat-label>
-    <input matInput type="text" placeholder="course id" formControlName="cId">
+    <input matInput type="text" placeholder="location" formControlName="loc" required>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label>user id</mat-label>
-    <input matInput type="text" placeholder="user id" formControlName="usrId">
+    <mat-label>Tools of trade available?</mat-label>
+    <mat-select disableRipple  formControlName="devAvailable" required>
+      <mat-option value="1">Phone</mat-option>
+      <mat-option value="2">Pos</mat-option>
+      <mat-option value="3">Both</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>device action</mat-label>
+    <input matInput type="text" placeholder="device action" formControlName="devAction"  >
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Module Trained</mat-label>
+    <mat-select  formControlName="cId" required>
+      <mat-option *ngFor="let c of courses" [value]="c.value">
+        {{c.value}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Barcode</mat-label>
+    <input matInput type="text" placeholder="user id" formControlName="barcode"  required>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -136,15 +193,11 @@ export class TaReportComponent implements OnInit, AfterViewInit {
     <input matInput type="text" placeholder="latitude" formControlName="lat">
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" >
     <mat-label>longitude</mat-label>
     <input matInput type="text" placeholder="longitude" formControlName="longi">
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>phone</mat-label>
-    <input matInput  type="number" placeholder="phone" formControlName="phon">
-  </mat-form-field>
 </form>
 <div class="row">
   <div style="float: left">
@@ -152,10 +205,12 @@ export class TaReportComponent implements OnInit, AfterViewInit {
   </div>
   <span style="flex: 1 1 auto"></span>
   <div style="float: right" >
-    <button mat-button  (click)="saveData( EditDetails.value.agName ,EditDetails.value.devAction ,EditDetails.value.devAvailable ,EditDetails.value.loc ,
-  EditDetails.value.usrId ,EditDetails.value.cId , EditDetails.value.lat,EditDetails.value.longi, EditDetails.value.phon)">
-      <mat-icon>save_alt</mat-icon>save
-    </button>
+    <button mat-button *ngIf="noSaveBtn" (click)="saveData( EditDetails.value.agName ,EditDetails.value.devAction ,EditDetails.value.devAvailable ,EditDetails.value.loc ,
+  EditDetails.value.usrId ,EditDetails.value.cId , EditDetails.value.lat,EditDetails.value.longi, EditDetails.value.phon, EditDetails.value.barcode)">
+      <mat-icon>save_alt</mat-icon>save</button>
+    <button mat-button *ngIf="!noSaveBtn" (click)="createData( EditDetails.value.agName ,EditDetails.value.devAction ,EditDetails.value.devAvailable ,EditDetails.value.loc ,
+  EditDetails.value.usrId ,EditDetails.value.cId , EditDetails.value.lat,EditDetails.value.longi, EditDetails.value.phon, EditDetails.value.barcode)">
+      <mat-icon>save_alt</mat-icon><mat-icon>fiber_new</mat-icon></button>
   </div>
 </div>
 
@@ -164,21 +219,22 @@ export class TaReportComponent implements OnInit, AfterViewInit {
 })
 export class EditTAComponent implements  OnInit{
   EditDetails = this.formBuilder.group({
-    agName: ['', Validators.required],
-    devAction: ['', Validators.required],
-    devAvailable: ['', Validators.required],
-    loc: ['', Validators.required],
-    usrId: ['', Validators.required],
+    agName: [this.data.row.agentName, Validators.required],
+    devAction: [''],
+    devAvailable: [this.data.row.deviceAvailable, Validators.required],
+    loc: [this.data.row.location, Validators.required],
+    barcode: [this.data.row.barcode, [ Validators.required]],
     cId: ['', Validators.required],
-    lat: ['', Validators.required],
-    longi: ['', Validators.required],
-    phon: ['', Validators.required],
+    lat: [this.data.row.latitude],
+    longi: [this.data.row.longitude],
+    phon: [this.data.row.phone, Validators.required],
   });
 
   private updatedList: {
     id: bigint;
     createdAt: Date;
     updatedAt: Date;
+    courseId: string;
     agentName: string;
     deviceAction: string;
     deviceAvailable: number;
@@ -186,18 +242,41 @@ export class EditTAComponent implements  OnInit{
     location: string;
     longitude: string;
     phone: string;
-    courseId: string;
-    userId: string; } | undefined;
+    barcode: string; } | undefined;
+    noSaveBtn: boolean | undefined;
+
+  courses: Courses[] = [
+    {value: 'PO'},
+    {value: 'Role of agent user'},
+    {value: 'POS transaction and common errors'},
+    {value: 'Eazzy transaction'},
+    {value: 'Account origination'},
+    {value: 'kyc and identification'},
+    {value: 'Fraud management & AML'},
+    {value: 'Record keeping & archiving'},
+    {value: 'Customer service'},
+  ];
 
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any, public  formBuilder: FormBuilder,
     private trainService: TrainActivationService, public toast: ToastrService
   ) {}
 
-  ngOnInit(): void{}
+  ngOnInit(): void{
+    this.noSaveBtn = true;
+    if ( this.data.row.agentName === 'Agent name') {
+      this.noSaveBtn = false;
+      this.EditDetails.reset();
+      for (const name in this.EditDetails.controls) {
+        if (this.EditDetails) {
+          this.EditDetails.controls[name].setErrors(null);
+        }
+      }
+    }
+  }
 
-  saveData(agName: any, devAction: string, devAvailable: number, loc: string,
-           cId: string, usrId: string, lat: string, longi: string, phon: string): any {
+  saveData(agName: string, devAction: string, devAvailable: number, loc: string,
+           cId: string, usrId: string, lat: string, longi: string, phon: string, barcode: string): any {
     this.updatedList = {
       id: this.data.row.id,
       createdAt: this.data.row.createdAt,
@@ -209,8 +288,8 @@ export class EditTAComponent implements  OnInit{
       location: loc,
       longitude: longi,
       phone: phon,
+      barcode,
       courseId: cId,
-      userId: usrId,
     };
     if (!this.EditDetails.valid){
       return;
@@ -226,5 +305,37 @@ export class EditTAComponent implements  OnInit{
   }
   clear(): any {
     this.EditDetails.reset();
+    for (const name in this.EditDetails.controls) {
+      if (this.EditDetails) {
+        this.EditDetails.controls[name].setErrors(null);
+      }
+    }
+  }
+
+  createData(agName: any, devAction: string, devAvailable: number, loc: string,
+             cId: string, usrId: string, lat: string, longi: string, phon: string, barcode: string): any {
+     const createdList = {
+      agentName: agName,
+      deviceAction: devAction,
+      deviceAvailable: devAvailable,
+      latitude: lat,
+      location: loc,
+      longitude: longi,
+      phone: phon,
+      courseId: cId,
+       barcode
+    };
+     if (!this.EditDetails.valid){
+       this.toast.warning('fill all required values to proceed');
+       return;
+    }
+     this.trainService.createTraining(createdList).subscribe(
+      (result: any) => {
+        console.log( result);
+        this.toast.success('created new Training',  'Done');
+      },
+      (err: any) => {
+        this.toast.error(`${err}`, 'Err');
+      });
   }
 }

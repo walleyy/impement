@@ -11,7 +11,7 @@ const URI = 'http://localhost:8080/api/accountOpening';
 export class AccountOpeningService {
 
   constructor(private http: HttpClient) { }
-  getAccOpening(): any{
+  getAccOpening(): Observable<AccountOpening>{
     return this.http.get<AccountOpening>(URI + '/');
   }
   searchAccOpening(id: number): Observable<AccountOpening>{
@@ -19,12 +19,14 @@ export class AccountOpeningService {
     return this.http.get<AccountOpening>(URI + '/' + `${id}` );
   }
 
-  createAccOpening(Opening: AccountOpening): object{
-    return this.http.post(URI, {Opening});
+  createAccOpening(Opening: { custTrained: number; kycDocsAvailable: string; phone: string; accountNo: any;
+  accountType: number; kycDocsMissing: string; latitude: string; formPic: string; custName: string;
+  custTrainedReason: string; longitude: string }): any{
+    return this.http.post(URI, Opening);
   }
 
   updateAccOpening(Opening: AccountOpening , id: number): any {
-    return this.http.put(URI + '/' + `${id}` , {Opening});
+    return this.http.put(URI + '/' + `${id}` , Opening);
   }
 
   deleteAccOpening(id: number): any {

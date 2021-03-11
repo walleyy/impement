@@ -36,12 +36,15 @@ export class TablesComponent implements OnInit , AfterViewInit{
               public formBuilder: FormBuilder, public toast: ToastrService) {}
 
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined ;
+  searchingOn = false;
+  isLoading = true;
   ngOnInit(): any{
     this.taskService.getTask().subscribe(
     (task: any) => {
       this.tasks = task;
       this.dataSource = new MatTableDataSource(this.tasks);
       this.ngAfterViewInit();
+      this.isLoading = false;
     },
     ((err: any) => console.log(err))
   );
@@ -53,6 +56,7 @@ export class TablesComponent implements OnInit , AfterViewInit{
   }
 
   applyFilter(event: Event): any {
+    this.searchingOn = true;
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }

@@ -1,10 +1,21 @@
 <div class="container">
-  <mat-form-field>
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
-  </mat-form-field>
+  <div class="row">
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="File info" #input>
+    </mat-form-field>
+    <span style="flex:  1 1 auto">
+             </span>
+    <button mat-button style="float: right" (click)="toggle()"><mat-icon style="color: gray">library_add</mat-icon></button>
+  </div>
     <div  class="mat-elevation-z8">
-<div class="containerR">
+      <div  *ngIf="toggleButton" >
+        <div  style="float: right;flex-direction: row ">
+          <button mat-button >report<mat-icon >file_download</mat-icon></button>
+          <button mat-button (click)="create()" ><mat-icon>fiber_new</mat-icon><mat-icon >file_download</mat-icon></button>
+        </div>
+      </div>
+    <div class="containerR">
   <table mat-table [dataSource]="dataSource"  matSort >
 
     <ng-container matColumnDef="id">
@@ -30,6 +41,10 @@
     <ng-container matColumnDef="kycDocAvailable">
       <th mat-header-cell  mat-sort-header *matHeaderCellDef> kycDocAvailable </th>
       <td mat-cell *matCellDef="let element"> {{element.kycDocsAvailable}} </td>
+    </ng-container>
+    <ng-container matColumnDef="kycDocsList">
+      <th mat-header-cell  mat-sort-header *matHeaderCellDef> kycDocsList </th>
+      <td mat-cell *matCellDef="let element"> {{element.kycDocslist}} </td>
     </ng-container>
 
     <ng-container matColumnDef="latitude">
@@ -71,12 +86,26 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-    <!-- Row shown when there is no matching data. -->
-    <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-    </tr>
+    <div *ngIf="searchingOn">
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </div>
+
+    <div disabled="!isLoading"
+         style="display: flex; justify-content: center; align-items: center; background: white;height: 25vh">
+      <tr class="mat-row" *matNoDataRow >
+        <td class=" mat-cell" colspan="15" style="justify-content: center;align-items: center;">
+          <mat-progress-spinner
+            color="primary"
+            mode="indeterminate">
+          </mat-progress-spinner>
+        </td>
+      </tr>
+
+    </div>
   </table>
 </div>
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
    </div>
 </div>

@@ -23,13 +23,22 @@ th.mat-column-position, td.mat-column-position {
 
 th, td {
   overflow: hidden;
-  width: 150px;
+  width: 200px;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+th.mat-header-cell {
+  text-align: left;
+  max-width: 300px;
 }
 .editItem{
   color: #1DC7EA;
 }
 .deleteItem{
   color: red;
+}
+.mat-progress-spinner{
+  left: 50vh;
+  margin: 15px;
 }

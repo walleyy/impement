@@ -11,7 +11,7 @@ export class TrainActivationService {
   constructor(private http: HttpClient) { }
 
   getTraining(): any {
-    return this.http.get<TrainingActivation>(URI + '/index' );
+    return this.http.get<TrainingActivation>(URI + '/index/' );
   }
 
   searchTraining(id: number): any{
@@ -19,12 +19,13 @@ export class TrainActivationService {
     return this.http.get<TrainingActivation>(URI + '/' + `${id}` );
   }
 
-  createTraining(training: TrainingActivation): object{
-    return this.http.post(URI, {training});
+  createTraining(training: { deviceAction: string; deviceAvailable: number; phone: string; latitude: string; agentName: any;
+  location: string; courseId: string; longitude: string }): any{
+    return this.http.post(URI + '/update', training);
   }
 
   updateTraining(training: TrainingActivation , id: number): any {
-    return this.http.put(URI + '/' + `${id}` , {training});
+    return this.http.put(URI + '/' + `${id}` , training);
 
   }
 

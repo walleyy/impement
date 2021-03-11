@@ -22,7 +22,7 @@ export class AccountActivationService {
     return this.http.get<AccountActivation>(URI + '/' + `${id}` );
   }
 
-  createAccActivation(account: AccountActivation): object{
+  createAccActivation(account: { phone: string; accountNo: string; latitude: string; custName: string; longitude: string }): any{
     return this.http.post(URI, account);
   }
 

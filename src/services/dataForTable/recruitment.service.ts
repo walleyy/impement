@@ -20,12 +20,13 @@ export class RecruitmentService {
     return this.http.get<Recruitment>(URI + '/' + `${id}` );
   }
 
-  createRecruitment(recruitment: Recruitment): object{
-    return this.http.post(URI, {recruitment});
+  createRecruitment(recruitment: { kycDocsAvailable: number; prospectName: string; phone: string; latitude: string;
+  location: string; docsCollectDate: Date; longitude: string }): any{
+    return this.http.post(URI, recruitment);
   }
 
   updateRecruitment(recruitment: Recruitment , id: number): any {
-    return this.http.put(URI + '/' + `${id}` , {recruitment});
+    return this.http.put(URI + '/' + `${id}` , recruitment);
 
   }
 

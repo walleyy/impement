@@ -20,7 +20,7 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'smReport',  component: SmReportComponent },
   { path: 'taReport',  component: TaReportComponent },
   { path: 'rReport',  component: RReportComponent },
-  { path: 'accReport',  component: AccountActivationComponent },
+  { path: 'aAReport',  component: AccountActivationComponent },
   { path: 'accOpening',  component: AccountOpeningComponent },
   { path: 'manageUsers',  component: ManageUsersComponent },
 ];

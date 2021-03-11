@@ -36,7 +36,14 @@ export class AccountActivationComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined ;
   @ViewChild(MatSort) sort: MatSort | undefined ;
-
+  toggleButton: any;
+private defaultsActivation: {
+  phone: string;
+  accountNo: any;
+  latitude: string;
+  custName: string;
+  longitude: string;
+}| undefined;
   constructor(private accService: AccountActivationService, public toast: ToastrService,
               public dialog: MatDialog
   ) {
@@ -94,6 +101,32 @@ export class AccountActivationComponent implements OnInit, AfterViewInit {
       }
     );
   }
+
+  toggle(): any {
+    this.toggleButton = !this.toggleButton;
+  }
+
+  create(): any {
+this.defaultsActivation = {
+      accountNo: 0,
+        custName: '',
+        latitude: '',
+        longitude: '',
+        phone: '',
+    };
+const dialogRef = this.dialog.open(DialogComponent, {
+      width: '90%',
+      data: { row: this.defaultsActivation, component: EditAAComponent},
+      autoFocus : true,
+      disableClose: true,
+    });
+dialogRef.afterClosed().subscribe(
+      results => {
+        this.dataSource = new MatTableDataSource(this.accountActivation);
+        this.ngOnInit();
+      }
+    );
+  }
 }
 
 
@@ -123,7 +156,7 @@ export class AccountActivationComponent implements OnInit, AfterViewInit {
 
   <mat-form-field appearance="outline">
     <mat-label>phone</mat-label>
-    <input matInput  type="number" placeholder="phone" formControlName="phon">
+    <input matInput  type="text" placeholder="phone" formControlName="phon">
   </mat-form-field>
 </form>
 <div class="row">
@@ -132,33 +165,44 @@ export class AccountActivationComponent implements OnInit, AfterViewInit {
   </div>
   <span style="flex: 1 1 auto"></span>
   <div style="float: right" >
-    <button mat-button  (click)="saveData( EditDetails.value.accNo ,EditDetails.value.cName , EditDetails.value.lat , EditDetails.value.longi, EditDetails.value.phon)">
-      <mat-icon>save_alt</mat-icon>save
-    </button>
+    <button mat-button *ngIf="!noSaveBtn" (click)="createData( EditDetails.value.accNo ,EditDetails.value.cName , EditDetails.value.lat , EditDetails.value.longi, EditDetails.value.phon)">create<mat-icon>fiber_new</mat-icon></button>
+    <button mat-button *ngIf="noSaveBtn" (click)="saveData( EditDetails.value.accNo ,EditDetails.value.cName , EditDetails.value.lat , EditDetails.value.longi, EditDetails.value.phon)">
+      <mat-icon>save_alt</mat-icon>save</button>
   </div>
 </div>
-
   `,
   styleUrls: ['../../../../../assets/scss/others.scss']
 })
 export class EditAAComponent implements  OnInit{
   EditDetails = this.formBuilder.group({
-    accNo: ['', Validators.required],
-    cName: ['', Validators.required],
-    lat: ['', Validators.required],
-    longi: ['', Validators.required],
-    phon: ['', Validators.required],
+    accNo: [this.data.row.accountNo, Validators.required],
+    cName: [this.data.row.custName, Validators.required],
+    lat: [this.data.row.latitude, Validators.required],
+    longi: [this.data.row.longitude, Validators.required],
+    phon: [this.data.row.phone, Validators.required],
   });
 
   private updatedList: { createdAt: Date; phone: string; accountNo: any;
   latitude: string; id: any; custName: string; updatedAt: Date; longitude: string; } | undefined;
+  noSaveBtn: any;
 
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any, public  formBuilder: FormBuilder,
     private accService: AccountActivationService, public toast: ToastrService
   ) {}
 
-  ngOnInit(): void{}
+  ngOnInit(): void{
+    this.noSaveBtn = true;
+    if ( this.data.row.accountNo === 0) {
+      this.noSaveBtn = false;
+      this.EditDetails.reset();
+      for (const name in this.EditDetails.controls) {
+        if (this.EditDetails) {
+          this.EditDetails.controls[name].setErrors(null);
+        }
+      }
+    }
+  }
 
   saveData(accNo: any, cName: string, lat: string, longi: string, phon: string): any {
     this.updatedList = {
@@ -183,7 +227,34 @@ export class EditAAComponent implements  OnInit{
         this.toast.error(`${err}`, 'Err');
       });
   }
+
   clear(): any {
     this.EditDetails.reset();
+    for (const name in this.EditDetails.controls) {
+      if (this.EditDetails) {
+        this.EditDetails.controls[name].setErrors(null);
+      }
+    }
+  }
+
+  createData(accNo: string, cName: string, lat: string, longi: string, phon: string): any {
+    const createdList = {
+      accountNo: accNo,
+      custName: cName,
+      latitude: lat,
+      longitude: longi,
+      phone: phon,
+    };
+    if (!this.EditDetails.valid){
+      return;
+    }
+    this.accService.createAccActivation(createdList).subscribe(
+      (result: any) => {
+        console.log( result);
+        this.toast.success('created new Account', 'Done');
+      },
+      (err: any) => {
+        this.toast.error(`${err}`, 'Err');
+      });
   }
 }

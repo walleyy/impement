@@ -1,9 +1,20 @@
 <div class="container">
-  <mat-form-field>
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="account info" #input>
-  </mat-form-field>
+  <div class="row">
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="File info" #input>
+    </mat-form-field>
+    <span style="flex:  1 1 auto">
+             </span>
+    <button mat-button style="float: right" (click)="toggle()"><mat-icon style="color: gray">library_add</mat-icon></button>
+  </div>
    <div  class="mat-elevation-z8 ">
+     <div  *ngIf="toggleButton" >
+       <div  style="float: right;flex-direction: row ">
+         <button mat-button >report<mat-icon >file_download</mat-icon></button>
+         <button mat-button (click)="create()" ><mat-icon>fiber_new</mat-icon><mat-icon >file_download</mat-icon></button>
+       </div>
+     </div>
      <div  class="containerAa">
        <table mat-table [dataSource]="dataSource"  matSort  >
 

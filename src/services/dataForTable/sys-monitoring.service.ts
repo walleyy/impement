@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {SupportMonitoring} from '../../app/components/dash-board/pages/sm-report/sm-report.component';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {DomSanitizer} from '@angular/platform-browser';
 
 const URI = 'http://localhost:8080/api/support';
 
@@ -19,7 +17,7 @@ const httpOptions = {
 })
 export class SysMonitoringService {
 
-  constructor(private http: HttpClient, private domSanitizer: DomSanitizer) { }
+  constructor(private http: HttpClient) { }
 
   getMonitoring( ): any {
    return this.http.get<SupportMonitoring>(URI + '/');
@@ -30,7 +28,11 @@ export class SysMonitoringService {
     return this.http.get<SupportMonitoring>(URI + '/' + `${id}` );
   }
 
-  createSupport(support: SupportMonitoring): any{
+  createSupport(support: { posState: boolean; supportNeed: string; appState: boolean; troubleShooting: boolean;
+  agentCode: string; latitude: string; collectStationery: boolean; agentName: string; brandedAction: string;
+  cashOut: boolean; troubleShootingNeed: string; registerState: boolean; collectStationeryNeed: string;
+  branded: boolean; registerAction: string; phone: string; appAction: string; support: boolean; posAction: string;
+  longitude: string; registerPic: string }): any{
     return this.http.post(URI, support);
   }
 

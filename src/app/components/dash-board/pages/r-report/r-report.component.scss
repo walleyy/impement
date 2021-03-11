@@ -4,7 +4,7 @@ table{
 }
 .containerR{
   height: 100%;
-  max-width: 100%;
+  width: 100%;
   overflow: auto;
 }
 
@@ -32,4 +32,8 @@ th, td {
 }
 .deleteItem{
   color: red;
+}
+.mat-progress-spinner{
+  left: 50vh;
+  margin: 15px;
 }
